@@ -1,0 +1,68 @@
+Two version of source codes are included:
+
+v2.61a: without dislin library linked
+v2.61b: with dislin library linked
+
+DISLIN is a graphic library developed by Helmut Michels at Max Planck Institute
+
+dislin website : www.dislin.de
+
+v2.61b uses DISLIN library to generate various graphic files for plotting the model geometry.
+v2.61a doesn't have such functions, but both version will generate a tecplot-formatted binary
+file (.plt file), you can use TECPLOT to open the file and generate various plots. 
+
+TECPLOT is not required in compile or run time for both 2.61a and 2.61b. However, to compile
+ver 2.61b,  you'll need to extrac some dislin library files from the package provided on www.dislin.de.
+dislin is free for non-commercial use. otherwise you probably need to get your own licence, or use 2.61a
+
+Note even for 2.61b, you don't have to install the whole dislin package, only several library files are necessary
+in the packages. Depending on your OS and compiler choice, these files are:
+
+for linux, static library : dislin.a  or similar name 
+for windows :  disdvf.lib (for digital visual fortran), disdll.lib  and dislin.dll
+ 
+for linux: 
+Check the included Makefile to see the compiler option. dislin.a will be statically linked in the binary.
+so the binary will be stand-alone. also note that in the Makefile, libX11 is required. X11 library usually
+located at /usr/X11R6, or /usr/lib
+
+for windows:
+ you'll need to link disdvf.lib (or dis***.lib depending on your compiler) and disdll.lib in compile time,
+ and put dislin.dll in the same folder as the binary in run time.
+
+ ***********************************************************************************
+ Compiler note:
+
+ use latest pgf90, ifort or gfortran. if you use gfortran, make sure use -ffree-line-length-0 option.
+ if older compiler is chosen such as pgf90 v6.xx or compaq visual fortran, you may encounter a binary file io error,
+ then you may have to modify the source code, see Note 1.
+
+*********************************************************************
+
+Note 1: bindary file format (FORTRAN 2003 vs. FORTRAN 90/95)
+
+For binary file I/O, FORTRAN 2003 provides a new access specifier: ACCESS='STREAM'
+This FORTRAN 2003 feature is used in the source code. and this feasure is supported
+in all new versions of pgf90, ifort, or gfortran.
+However, older version compliers may not support this feasure. (pgf90 v6.xx seems not)
+
+If this is the case, pgf90 or ifort or CVF supports an altenative way for binary file I/O:
+  
+  FORM='BINARY'
+
+'BINARY' specifier is not a standard 90/95 or 2003 feature, gfortran doesn't support it in any version
+however, both ifort (dating back to Compaq Visual fortran 6.6) and pgf90 support this specifier for a long time
+in their language extension.
+
+So if an older version compiler is used (pgf90 v6.xx, CVF or ifort), you can modify the source code:
+
+ grep -rl "FORM='UNFORMATTED'" *.f90 |xargs sed -i -e "s/FORM='UNFORMATTED', ACCESS='STREAM'/FORM='BINARY'/g"
+
+if you want undo the changes:
+
+ grep -rl "FORM='BINARY'" *.f90 |xargs sed -i -e "s/FORM='BINARY'/FORM='UNFORMATTED', ACCESS='STREAM'/g"
+
+
+
+  Ce Yi
+ 10.06.2009
