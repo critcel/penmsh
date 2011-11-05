@@ -372,7 +372,7 @@ do i = 1, count
 
  case ('help','-h','-H','h','H','--help')
       call DisplayHelp
- case ('colormap','helpcm')
+ case ('colormap','-helpcm','helpcm')
      call DisplayColorMap
  
     case default
@@ -741,7 +741,7 @@ end subroutine
 
 subroutine DisplayColorMap
 
-write(*,"(A)") 'Use -cm <colormap id> option to set a color map'
+write(*,"(A)") 'Use -color <colormap id> option to set a color map'
 write(*,"(A)") 'colormap id: '
 write(*,"(A)") ' 0 : dislin id=SMALL, defines a small colour table with the 8 colours'
 write(*,"(A)") '     1 = BLACK, 2 = RED, 3 = GREEN, 4 = BLUE, 5 = YELLOW, 6 = ORANGE, 7 = CYAN and 8 = MAGENTA'
