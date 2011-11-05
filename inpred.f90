@@ -15,7 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.67b (Aug 2011)"
+ver_num="version 2.67c (Aug 2011)"
 !*****************************************
 !control varibles in this section
 
@@ -372,7 +372,7 @@ do i = 1, count
 
  case ('help','-h','-H','h','H','--help')
       call DisplayHelp
- case ('colormap')
+ case ('colormap','helpcm')
      call DisplayColorMap
  
     case default
