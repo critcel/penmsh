@@ -591,10 +591,13 @@ if(maxarr .lt. max_fm*num_group*num_source) &
 if( maxarr .lt. num_group*num_material*ihm*(legoxs+1) ) &
 maxarr=num_group*num_material*ihm*(legoxs+1)
 
-maxarr=maxarr+50
+!GES Change mult by 25 
+!maxarr=maxarr+50
+maxarr=(maxarr+60)*25  
 
-
-nctlim=max_fido_char+50
+!GES Change mult by 15
+!nctlim=max_fido_char+50
+nctlim=(max_fido_char+50)*15 
 
 
 open(unit=TEMPF90, file=trim(outputfile(5)%fullname),STATUS='OLD',err=5401)
