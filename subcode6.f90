@@ -15,7 +15,7 @@ use fido
 integer filehandler, num_space
 
 character, dimension(:), allocatable :: oneline2  !, inline
-
+character (len=82) :: line_last='', line_second=''
 !character :: bufline(78)=''
 !integer :: num_line
 !integer :: bufleng
@@ -92,7 +92,37 @@ do while(len1 .ne. 0)
    
    endif
 enddo
-  
+
+!to avoid 'T'-alone line
+if(line_pointer .ne. 0 .and. index(appvar,'T') .ne. 0 ) then  !avoid
+
+backspace(filehandler)
+read(filehandler,"(A)" ) line_last
+line_last=adjustl(line_last)
+if(line_last(1:1) .eq. 'T') then
+   backspace(filehandler)
+   read(filehandler,"(A)" ) line_second
+   last=len_trim(line_second)  
+   len1=last
+   do while(line_second(last:last) .ne. ' ')
+     last=last-1
+    enddo
+   if (last .ge. 1 .and. last .lt. len1 ) then
+     write(filehandler,"(A)" ) line_second(1:last)
+     write(filehandler,"(A,2x, A)" ) line_second(last+1:len1), line_last(1:len_trim(line_last))
+!forward two lines
+   else
+     read(filehandler) 
+     read(filehandler) 
+   endif
+
+!forward one recond if not 'T'-alone line
+else 
+   read(filehandler)
+endif
+
+endif   !avoid
+
 deallocate(oneline1) 
 
 end subroutine

@@ -591,7 +591,7 @@ do k=1, num_cmesh(3)
     matone=hrt_data(1)%matrix(x,y,z) 
     if(matone .le. 0) then
   write(err_message, &
-"('negtive or zero mat. number found (ERR1601) at: voxel(', 2(I0,1x),I0 ')=', I0 )" ) x, y, z, matone
+"('negtive or zero mat. number found (ERR1601) at: voxel(', 2(I0,1x),I0, ')=', I0 )" ) x, y, z, matone
         call TrapInputError(1)
     endif
     zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=matone    
@@ -698,7 +698,7 @@ do k=1, num_cmesh(3)
      src_matrix(ini,inj,ink)+hrt_data(2)%list(hrt_data(2)%matrix(x,y,z))
  else
       write(warning_message, &
- "('Negtive source intensity found in file ', A, ' at voxel(', 2(I0,1x),I0 ')=',ES12.5, ' negtive value ignored' )") &
+ "('Negtive source intensity found in file ', A, ' at voxel(', 2(I0,1x),I0, ')=',ES12.5, ' negtive value ignored' )") &
  trim(cur_filename), x,y,z, hrt_data(2)%list(hrt_data(2)%matrix(x,y,z))
       call TrapError(-6)
     endif

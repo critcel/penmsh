@@ -85,3 +85,9 @@ v 2.67b
 4. gfortran compatible 
    supplement2.f90  what2plot(3) assignment instead of in initalization
                     color_set  addes space to make all color character len=5
+
+v 2.68b
+1. colormap option name changed to -cm (GES  inpred.f90 v 2.67d changes)
+2. nctlim and maxarr multiplied (GES  subcode5.f90  v 2.67d changnes)
+3. to avoid 'T'-alone line in output (subcode6.f90 fidowriting)
+4. write/read format corrections (,) against nag compiler complains (v2.67c change)

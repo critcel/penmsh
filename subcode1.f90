@@ -619,7 +619,7 @@ if(zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num .gt. num_material .or. zlevel(i)%cm_zle
    call TrapInputError(1)
 endif 
 write(READLOG, "(' Mat num for coarse mesh ', I0, ' :  ', I0)" )  &
-   , cm_num_1z, zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num
+   cm_num_1z, zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num
 enddo
 enddo
 
@@ -1725,7 +1725,7 @@ if(zlevel(cmz)%cm_zlev(cmx,cmy)%fine(i) .le. 0) then
 endif 
 enddo
 
-write(READLOG, "(A, 2x, '  :  ', 3(I0,x) )") trim(cur_var), zlevel(cmz)%cm_zlev(cmx,cmy)%fine
+write(READLOG, "(A, 2x, '  :  ', 3(I0,1x) )") trim(cur_var), zlevel(cmz)%cm_zlev(cmx,cmy)%fine
 
 zlevel(cmz)%cm_zlev(cmx,cmy)%num_subregion=1
 zlevel(cmz)%cm_zlev(cmx,cmy)%cm_type=1

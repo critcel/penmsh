@@ -172,7 +172,7 @@ write(51,"('        Model Volume : ',ES14.6,' cm3    Mass:  ', ES14.6, ' g')") &
    total_mat_vol,mod_tot_mass
     
 else
- write(51,"('        Model Volume : ',ES14.6,' cm3  in ',I0,1x  ' total fine meshes')") &
+ write(51,"('        Model Volume : ',ES14.6,' cm3  in ',I0,1x,  ' total fine meshes')") &
   total_mat_vol,tot_num_fm
  write(51,*)
 endif
@@ -184,13 +184,13 @@ write(51,"('----------  ------  --------     -------------    -------    -------
 do i=1,num_material
 mat_fm_total=mat_fm(i)+mat_fm_total
 if(g(i) .ne. num_material+1) then
-write(51,"(A10, 1x I5,4x, I8, 3x, ES14.6,2x, f9.3, 5x, ES10.3,3x,ES10.3, 3x, ES10.3)") &
+write(51,"(A10, 1x, I5,4x, I8, 3x, ES14.6,2x, f9.3, 5x, ES10.3,3x,ES10.3, 3x, ES10.3)") &
  mat_tgt(g(i))%nam, mat_tgt(g(i))%num, mat_fm(i),mat_tgt(g(i))%vol_mod, &
  mat_tgt(g(i))%vol_mod*100/total_mat_vol, mat_tgt(g(i))%vol_mod/mat_tgt(g(i))%vol_tgt, &
  (mat_tgt(g(i))%vol_mod-mat_tgt(g(i))%vol_tgt)*mat_tgt(g(i))%den,&
  mat_tgt(g(i))%vol_mod*mat_tgt(g(i))%den
 else
-write(51,"(A10, 1x I5,4x, I8,3x, ES14.6,2x, f9.3)") &
+write(51,"(A10, 1x, I5,4x, I8,3x, ES14.6,2x, f9.3)") &
 'unknown',i, mat_fm(i),mat_vol(i),mat_vol(i)*100/total_mat_vol
 endif
 
@@ -208,10 +208,10 @@ write(51,"('----------  -----    ------------   ------------   ------------ ')")
 
 do i=1, num_material
 if(g(i) .ne. num_material+1) then
-write(51,"(A10, 2x I5, 4x, ES12.5, 3x, ES12.5, 3x ES12.5)") &
+write(51,"(A10, 2x, I5, 4x, ES12.5, 3x, ES12.5, 3x, ES12.5)") &
  mat_tgt(g(i))%nam, i, cen_mat(:,i)
 else
-write(51,"(A10, 2x I5, 4x, ES12.5, 3x, ES12.5, 3x ES12.5)") &
+write(51,"(A10, 2x, I5, 4x, ES12.5, 3x, ES12.5, 3x, ES12.5)") &
  'unknown', i, cen_mat(:,i)
 endif
 enddo
@@ -390,10 +390,10 @@ do cmi=1, num_cmesh(1)
    write(form, "('Flux distribution file:', A, ' generated at ' )" ) trim(cur_filename)
    call TimeStamp(cur_fileunit)
    backspace(cur_fileunit)  !reverse to the blank line in TimeStamp
-   write(cur_fileunit,"('Volumn ', I0 ' of ',I0, ': fine mesh ', I0, ' to ',I0, ' of total ', I0)") &
+   write(cur_fileunit,"('Volumn ', I0, ' of ',I0, ': fine mesh ', I0, ' to ',I0, ' of total ', I0)") &
      m, num_flx_out, fm, fm_bon, tot_num_fm
 !call intlen(num_group, len)
-   write(form, "( '(1x, A1,14x, A1,14x, A1,14x, A3,12x, A4,11x, A6,9x,' I0,'(I4, 9x) )' )") &
+   write(form, "( '(1x, A1,14x, A1,14x, A1,14x, A3,12x, A4,11x, A6,9x,', I0,'(I4, 9x) )' )") &
      num_group
    write(cur_fileunit, form) 'x', 'y', 'z' , 'vol', 'mat#', 'fixsrc',  (g, g=1, num_group)
 

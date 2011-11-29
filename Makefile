@@ -10,7 +10,7 @@ modfile=constants.mod  fido.mod  funs.mod  \
         dislin.mod mplot.mod min4deck.mod paraset5.mod
 modules=subcode0.o mytecio.o dislin.o
 # compile option for pgf90 or ifort
-# copt=-fast
+copt=-fast
 # for gfortran
 # copt=-O3 --ffree-line-length-0
 inpred: $(objects) 
