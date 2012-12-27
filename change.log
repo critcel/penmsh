@@ -91,3 +91,7 @@ v 2.68b
 2. nctlim and maxarr multiplied (GES  subcode5.f90  v 2.67d changnes)
 3. to avoid 'T'-alone line in output (subcode6.f90 fidowriting)
 4. write/read format corrections (,) against nag compiler complains (v2.67c change)
+
+v 2.69b
+1. fixed and improved 'T' alone line (subcode6.f90 fidowriting)
+2. version number in read.log (inpred.f90)

@@ -71,6 +71,16 @@ do while(len1 .ne. 0)
       last=last-1
      enddo
      lastspace=last
+!to avoid 'T'-alone line
+	 if(len1-lastspace .gt. 0) then
+	 if(oneline1(line_pointer+last+1) .ne. 'T') then
+	   last=last-1
+	   do while(oneline1(line_pointer+last) .ne. ' ')
+        last=last-1
+       enddo
+	 endif
+	 endif
+
      write(filehandler,'(79A)') (oneline1(line_pointer+j),j=1,min(79,lastspace))
   
   if(len1-lastspace .gt. 0) then
@@ -94,34 +104,30 @@ do while(len1 .ne. 0)
 enddo
 
 !to avoid 'T'-alone line
-if(line_pointer .ne. 0 .and. index(appvar,'T') .ne. 0 ) then  !avoid
+!if(line_pointer .ne. 0 .and. index(appvar,'T') .ne. 0 ) then  !avoid
 
-backspace(filehandler)
-read(filehandler,"(A)" ) line_last
-line_last=adjustl(line_last)
-if(line_last(1:1) .eq. 'T') then
-   backspace(filehandler)
-   read(filehandler,"(A)" ) line_second
-   last=len_trim(line_second)  
-   len1=last
-   do while(line_second(last:last) .ne. ' ')
-     last=last-1
-    enddo
-   if (last .ge. 1 .and. last .lt. len1 ) then
-     write(filehandler,"(A)" ) line_second(1:last)
-     write(filehandler,"(A,2x, A)" ) line_second(last+1:len1), line_last(1:len_trim(line_last))
-!forward two lines
-   else
-     read(filehandler) 
-     read(filehandler) 
-   endif
-
-!forward one recond if not 'T'-alone line
-else 
-   read(filehandler)
-endif
-
-endif   !avoid
+!backspace(filehandler)
+!read(filehandler,"(A)" ) line_last
+!line_last=adjustl(line_last)
+!if(line_last(1:1) .eq. 'T') then
+!   backspace(filehandler)
+!   backspace(filehandler)
+!   read(filehandler,"(A)" ) line_second
+!   last=len_trim(line_second)  
+!   len1=last
+!   do while(line_second(last:last) .ne. ' ')
+!     last=last-1
+!    enddo
+!   if (last .ge. 1 .and. last .lt. len1 ) then
+!     backspace(filehandler) 
+!     write(filehandler,"(A)" ) line_second(1:last)
+!     write(filehandler,"(A,2x, A)" ) line_second(last+1:len1), line_last(1:len_trim(line_last))
+!!forward one lines
+!   else
+!     read(filehandler,*) 
+!   endif
+!endif
+!endif   !avoid
 
 deallocate(oneline1) 
 

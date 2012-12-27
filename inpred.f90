@@ -15,7 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.68b (Nov 2011)"
+ver_num="version 2.69b (Dec 2012)"
 !*****************************************
 !control varibles in this section
 
@@ -61,6 +61,7 @@ call DisplayShortHeader
 stime=SECNDS(0.0)
 
 open(unit=READLOG, file=outputfile(1)%fullname)
+write (READLOG,"('penmshxp ', A)" ) ver_num
 write(form,"('read.log generated at : ')") 
 call TimeStamp(READLOG)
 
