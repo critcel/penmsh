@@ -15,12 +15,13 @@ use fido
 integer filehandler, num_space
 
 character, dimension(:), allocatable :: oneline2  !, inline
-character (len=82) :: line_last='', line_second=''
+! character (len=20) :: line_last='',line_second='' 
+
 !character :: bufline(78)=''
 !integer :: num_line
 !integer :: bufleng
 
-integer last,lastspace,line_pointer, i
+integer last,lastspace,line_pointer, i,j
 integer len1,lenadd, lenadd_pre, lenadd_app
 
 
@@ -70,17 +71,29 @@ do while(len1 .ne. 0)
      do while(oneline1(line_pointer+last) .ne. ' ')
       last=last-1
      enddo
-     lastspace=last
+
 !to avoid 'T'-alone line
-	 if(len1-lastspace .gt. 0) then
-	 if(oneline1(line_pointer+last+1) .ne. 'T') then
-	   last=last-1
-	   do while(oneline1(line_pointer+last) .ne. ' ')
+! len1 : length of the remainder of oneline1
+! last : last space location for current line
+	 if(len1-last .gt. 0) then
+     j=line_pointer+last+1 
+	 !'T' -alone line
+     if(oneline1(j) .eq. 'T' ) then
+        last=last-1
+	   !skip space
+	   do while(oneline1(line_pointer+last) .eq. ' ')
         last=last-1
        enddo
+	   !skip the last fido entry, which will be moved to the next line, which otherwise would be a T-alone line
+       do while(oneline1(line_pointer+last) .ne. ' ')
+        last=last-1
+       enddo
+
 	 endif
 	 endif
 
+
+	 lastspace=last
      write(filehandler,'(79A)') (oneline1(line_pointer+j),j=1,min(79,lastspace))
   
   if(len1-lastspace .gt. 0) then
