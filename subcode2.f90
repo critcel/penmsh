@@ -147,7 +147,7 @@ num_reg=abs(zlevel(k)%cm_zlev(i,j)%num_subregion)
 call InitCMmat(i,j,k,cm_typ,num_reg)
 
 
-if(zlevel(k)%cm_zlev(i,j)%cm_type .le. -1) then
+if(zlevel(k)%cm_zlev(i,j)%cm_type .le. -1 .or. zlevel(k)%cm_zlev(i,j)%cm_type .gt. 10) then
  call SetupCMmat(i,j,k) 
 else
  call FinalizeCMmat(i,j,k,num_reg)
@@ -569,6 +569,7 @@ use paraset4
 use ErrControl
 use files
 use funs
+use constants
 integer i,j,k
 
 type qcircle
@@ -601,8 +602,9 @@ data tri/3,2,4, &
 mat_list=0  
 
 cm_num_zlev=num_cmesh(1)*(j-1)+i
-num_block=int(-zlevel(k)%cm_zlev(i,j)%cm_type/10)
-!num_block=-zlevel(k)%cm_zlev(i,j)%cm_type
+!num_block=int(-zlevel(k)%cm_zlev(i,j)%cm_type/10)
+
+num_block=zlevel(k)%cm_zlev(i,j)%num_block
 if(num_block .eq. 0) num_block=1
 zlevel(k)%cm_zlev(i,j)%uni_zfine=1
 zfin_flag=0
@@ -634,6 +636,7 @@ endif
 do block=1, num_block
  overlay_num_abs=abs(zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_num)
  do m=1, overlay_num_abs
+
   repk_loop: do rep_k=1,zlevel(k)%cm_zlev(i,j)%overlay_block(block)%num_rep(3,m)
   do rep_j=1,zlevel(k)%cm_zlev(i,j)%overlay_block(block)%num_rep(2,m)
   do rep_i=1,zlevel(k)%cm_zlev(i,j)%overlay_block(block)%num_rep(1,m)
@@ -923,6 +926,65 @@ if( (d .le. r) .and. (b2 .ge. 0) .and. (b3 .ge. 0)) then
  zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
  exit repk_loop
 end if
+endif
+
+!hexagon by center point and one vertex
+case(6)
+
+center_x=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(1,m)
+center_y=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(2,m)
+
+vertex_x=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(3,m)
+vertex_y=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(4,m)
+
+r_out=(center_x-vertex_x)**2+(center_y-vertex_y)**2
+r_out=sqrt(r_out)
+r_in=r_out*cos30 !sqrt(3)/2
+
+
+d=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)*cos30
+if(center_y .eq. vertex_y) then
+ center_x=center_x+(rep_i-1)*d
+ vertex_x=vertex_x+(rep_i-1)*d
+ center_y=center_y+(rep_j-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ vertex_y=vertex_y+(rep_j-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ if(mod(rep_i-1,2) .eq. 1) then
+  center_y=center_y-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+  vertex_y=vertex_y-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ endif
+
+elseif(center_x .eq. vertex_x) then
+ center_y=center_y+(rep_j-1)*d
+ vertex_y=vertex_y+(rep_j-1)*d
+
+ center_x=center_x+(rep_i-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ vertex_x=vertex_x+(rep_i-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ if(mod(rep_j-1,2) .eq. 1) then
+  center_x=center_x-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+  vertex_x=vertex_x-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
+ endif
+endif
+
+d=(x1-center_x)**2+(y1-center_y)**2
+d=sqrt(d)
+
+if(d .le. r_in) then
+  zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
+  exit repk_loop
+endif
+
+if(d .le. r_out) then
+ theta=atan2(vertex_y-center_y, vertex_x-center_x)
+ gamma=atan2(y1-center_y, x1-center_x)
+ beta=gamma-theta
+ if(beta .lt. 0) beta=beta+2*pi
+ beta=beta-(int(3*beta/pi)-1)*pi/3
+ 
+ r=r_out*cos30/sin(beta)
+ if(d .le. r) then
+  zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
+  exit repk_loop
+ endif
 endif
 
 

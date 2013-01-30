@@ -95,3 +95,21 @@ v 2.68b
 v 2.69b
 1. fixed and improved 'T' alone line (subcode6.f90 fidowriting)
 2. version number in read.log (inpred.f90)
+
+v 2.70b
+1. Shared overlay block among CMs    
+ e.g. overlay type block
+1 1 1 1  1
+1 1 1 1  1
+-1 -1 -1  111 1
+1 1 131 121 1
+1 1 1 1 1
+
+CM 14 with (111) has same overlay structure as CM11
+
+2. hexagon overlay 
+  type 6 
+  center_x, center_y, vertex_x, vertex_y
+  
+  support hexagon latice only if (center_x=vertex_x .or. center_y=vertex_y)
+  

@@ -29,6 +29,7 @@ integer cm_typ, num_reg
 !for repeat overlay block
 integer :: rep_ijk(3), rep_i, rep_j, rep_k
 integer :: temp_int
+integer :: mycm_type, mycm_x, mycm_y
 logical :: ex
 
 penmsh_inp%dir=input_dir
@@ -788,14 +789,118 @@ write(READLOG,*)
 !read in overlay 
 do cmy=1, zlevel(i)%ncy
 do cmx=1, zlevel(i)%ncx
-if(zlevel(i)%cm_zlev(cmx,cmy)%cm_type .gt. 0) cycle
-  cm_num_1z=cmx+(cmy-1)*zlevel(i)%ncx
+mycm_type=zlevel(i)%cm_zlev(cmx,cmy)%cm_type
+if(mycm_type .gt. 0 .and. mycm_type .lt. 10) cycle
+cm_num_1z=cmx+(cmy-1)*zlevel(i)%ncx
+
+!Coarse meshes share same overlay structure
+! if(zlevel(i)%cm_zlev(cmx,cmy)%cm_type .gt. 10) then
+ !last digit is the cm type, the others is the number of a previous CM, as which current CM has the same overlay stucture 
+ !e.g. cm_type=43, means cm type 3, and it has the same overlay structure as CM 4 
+if(mycm_type .gt. 10) then
+mycm_num=int(zlevel(i)%cm_zlev(cmx,cmy)%cm_type/10)
+mycm_x=mod(mycm_num-1,zlevel(i)%ncx)+1
+mycm_y=int((mycm_num-1)/zlevel(i)%ncx)+1
+
+if(mycm_num .gt. cm_num_1z) then
+ write(err_message, "('shared overlay structure has to appear in previous CM, error in cm_type for CM:',I0 )") cm_num_1z
+ call TrapInputError(1)
+elseif(zlevel(i)%cm_zlev(mycm_x,mycm_y)%cm_type .ge. 0 .and. zlevel(i)%cm_zlev(mycm_x,mycm_y)%cm_type .le. 10) then
+ write(err_message, "('shared overlay structure previous CM is not overlayed, error in cm_type for CM:',I0 )") cm_num_1z
+ call TrapInputError(1)
+else
+  write(READLOG,"('Overlay information for coarse mesh: ',I0,1x)") &
+       cm_num_1z
+  write(READLOG,"(' overlay structure same as: ',I0,1x)") &
+       mycm_num	   	
+endif
+
+num_block=zlevel(i)%cm_zlev(mycm_x,mycm_y)%num_block
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(num_block))
+
+
+do block=1,num_block
+!handle repeat structure
+  zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_num=&
+   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_num
+!  write(READLOG,*)
+!  write(cur_var,"('num of overlay for cm:  ',I0)")  cm_num_1z
+!  if(NumCmtLine(cur_fileunit,flag) .ge. 0) then 
+!   read(cur_fileunit,*,err=1002,end=1002) zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_num
+!  endif
+  over_num=zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_num
+  overlay_num_abs=abs(over_num)
+  
+   
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)% &
+    overlay_typ(overlay_num_abs))
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)% &
+       overlay_mat(overlay_num_abs))
+
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)% &
+   num_rep(3,overlay_num_abs), &
+   zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)% &
+   dist_rep(3,overlay_num_abs) )
+     
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%num_rep=1
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%dist_rep=0.0
+	
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(:)= &
+   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(:)
+
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
+	zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(j)
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_mat(:)= &
+   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_mat(:)
+
+
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_bon(maxos, &
+   overlay_num_abs))
+
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%mat_rep(overlay_num_abs))
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_bon(:,:)=&
+     zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_bon(:,:)
+	  
+do overlay=1,overlay_num_abs
+
+if(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(overlay) .lt. 0) then
+
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%num_rep(:,overlay)=&
+  zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%num_rep(:,overlay)
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%dist_rep(:,overlay)=&
+ zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%dist_rep(:,overlay)
+endif !repeat structure
+
+!different mat number for lattice
+if(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_mat(overlay) .lt. 0) then
+
+rep_ijk(:)=zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%num_rep(:,overlay)
+allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%mat_rep(overlay)%d3_int(rep_ijk(1), rep_ijk(2),rep_ijk(3) ) )
+
+zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%mat_rep(overlay)%d3_int(:,:,:)= &
+   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%mat_rep(overlay)%d3_int(:,:,:)
+
+
+endif  !diff. mat number
+
+enddo !overlay number
+enddo !enddo block
+
+cycle
+endif 
+ 
 
 ! if(zlevel(i)%cm_zlev(cmx,cmy)%cm_type .le. -1) then
  !last digit is the cm type, the others is the number of overlay block
  !e.g. cm_type=-43, means cm type 3, and 4 overlay blocks 
  num_block=int(-zlevel(i)%cm_zlev(cmx,cmy)%cm_type/10)
  if(num_block .eq. 0) num_block=1
+ zlevel(i)%cm_zlev(cmx,cmy)%num_block=num_block
  allocate(zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(num_block))
  write(READLOG,*)
  write(READLOG,"('Overlay information for coarse mesh: ',I0,1x)") &

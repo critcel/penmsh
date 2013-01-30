@@ -406,6 +406,7 @@ type zlevcm
  real    sum_act
  integer s_flag
  integer cm_num_mat
+ integer :: num_block=1
 
  real,dimension(:), allocatable :: cm_x,cm_y,cm_z
 !assigned number for each fine mesh in one coarse mesh
@@ -447,6 +448,10 @@ real b0,b1,b2,b3
 real center_z
 !shape id 5 cone
 real theta,h
+!shape id 6 hexagon
+real vertex_x, vertex_y
+real gamma, beta, r_in, r_out
+real, parameter :: cos30=0.866025
 
 !reference varibles
 integer*8 :: tot_num_fm, maxmem_byte,num_dir
@@ -731,6 +736,8 @@ select case (overlay_typ)
 !	map_overlay_typ2bon=5
 
   !add your overlay type here
+  case (6)
+   map_overlay_typ2bon=4
   case default
     map_overlay_tpy2bon=4
 	write(err_message,"('overlay type ',I0, ' in CM ', I0,' not supported ' )")&
