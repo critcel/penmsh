@@ -974,17 +974,34 @@ if(d .le. r_in) then
 endif
 
 if(d .le. r_out) then
- theta=atan2(vertex_y-center_y, vertex_x-center_x)
- gamma=atan2(y1-center_y, x1-center_x)
- beta=gamma-theta
- if(beta .lt. 0) beta=beta+2*pi
- beta=beta-(int(3*beta/pi)-1)*pi/3
+! theta=atan2(vertex_y-center_y, vertex_x-center_x)
+! gamma=atan2(y1-center_y, x1-center_x)
+! beta=gamma-theta
+! if(beta .lt. 0) beta=beta+2*pi
+! beta=beta-(int(3*beta/pi)-1)*pi/3
  
- r=r_out*cos30/sin(beta)
- if(d .le. r) then
+! r=r_out*cos30/sin(beta)
+! if(d .le. r) then
+!  zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
+!  exit repk_loop
+! endif
+cos_theta=(x1-center_x)*(vertex_x-center_x)+(y1-center_y)*(vertex_y-center_y)
+cos_theta=cos_theta/(d*r_out)
+sin_theta=sqrt(1-cos_theta*cos_theta)
+if(cos_theta .gt. 0.5) then
+  dk=cos_theta*cos30+sin_theta*0.5
+  dk=r_in/dk
+else if( cos_theta .gt. -0.5) then
+  dk=r_in/sin_theta
+else
+  dk=0.5*sin_theta-cos30*cos_theta
+  dk=r_in/dk
+endif
+if(d .le. dk) then
   zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
   exit repk_loop
- endif
+endif
+
 endif
 
 

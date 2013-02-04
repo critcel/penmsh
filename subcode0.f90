@@ -450,7 +450,7 @@ real center_z
 real theta,h
 !shape id 6 hexagon
 real vertex_x, vertex_y
-real gamma, beta, r_in, r_out
+real gamma, beta, r_in, r_out, cos_theta, sin_theta, dk
 real, parameter :: cos30=0.866025
 
 !reference varibles
