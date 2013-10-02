@@ -54,18 +54,31 @@ write(TEMPF90, '(A,I0)') 'Total Number of Fine Meshes:  ', tot_num_fm
 write(TEMPF90, '(A,I0)') 'Total Number of Coarse Meshes:  ',num_zlev*zlevel(1)%ncx*zlevel(1)%ncy
 write(TEMPF90, '(A,I0)') 'Number of zlevs:  ', num_zlev
 write(TEMPF90, '(A,I0)') 'Number of coarse mesh per z lev: ', zlevel(1)%ncx*zlevel(1)%ncy
-do j=6,9
+if(IsChiPath .eq. 1) then
+  write(TEMPF90, '(A,A)') 'CHI LOCATION: ', trim(ChiPath_dir)
+else 
+ write(TEMPF90, '(I1)') 6
+endif
+
+do j=7,9
  write(TEMPF90, '(I1)') j 
 enddo
+
 write(TEMPF90, '(I2)') 10
 write(TEMPF90, '(A)') '/'
 write(TEMPF90, '(A)') '/-------------BLOCK I (GENERAL PROBLEM info.)-----------'
 write(TEMPF90, '(A)') '/'
 write(TEMPF90, '(A)') 'ngeom=3d'
 write(TEMPF90, '(A)') 'modadj=0'
+
 call intlen(group,lenreal)
-write(form, "('(A7,I',I0,',2X,I3)' )") lenreal
-write(TEMPF90, form) 'ngroup=', ngroup(1),ngroup(2)
+if(nprtyp .eq. 0 .or. ihm .gt. num_group+3) then
+ write(form, "('(A7,I',I0,', 2X)' )") lenreal
+ write(TEMPF90, form) 'ngroup=', ngroup(1)
+else
+ write(form, "('(A7,I',I0,',2X,I3)' )") lenreal
+ write(TEMPF90, form) 'ngroup=', ngroup(1),ngroup(2)
+endif
 
 call intlen(sn,lenreal)
 write(TEMPF90, "('isn=',i0)") sn

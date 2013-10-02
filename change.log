@@ -114,3 +114,22 @@ CM 14 with (111) has same overlay structure as CM11
   support hexagon latice only if (center_x=vertex_x .or. center_y=vertex_y)
 v 2.71b
 1. improved telling of a point inside a hexagon or not  
+
+v 2.72b
+1. improvement on loading two sets of flux files. 
+ penmshxp -f1 folderA  -f2 folderB  
+ folderB: ref flux folder
+ plot relative diff. (A-B)/B
+
+2.  penmshxp -min A -max B
+removed limitation on A>0 B>0
+if A and/or B not present, using the global min and/or max (could be negative for rel. diff. plot)
+
+3. penmshxp -ming -maxg
+plot using min and/or max for a group
+
+
+v2.73b 
+1. penmshxp -chipath ChiPath_dir
+
+2. grp window diabled for nprtyp=0 (keff calculation and upscattering)

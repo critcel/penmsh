@@ -15,7 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.70b (Jan 2013)"
+ver_num="version 2.73b (June 2013)"
 !*****************************************
 !control varibles in this section
 
@@ -268,152 +268,156 @@ do i = 1, count
   
     case ('-i','i','--input')
       id_arg(i)=1
-    
     case ('-f', '-f1','-fl','--flux') 
       id_arg(i)=2
       IsProcessFlux=1
-    case ('-f2')
+    case ('-l','l','--log')
+      id_arg(i)=3
+    case ('-dot')
+      id_arg(i)=4 
+    case('-w')
+      id_arg(i)=5
+    case('-nd','--ndmesh')
+      id_arg(i)=6	
+	case ('-f2')
       id_arg(i)=7
       IsRefFlux=1
-    case ('-n')
-     IsNomalizeFlux=1
-     id_arg(i)=9
     case ('-f3', '-fjn')
      IsProcessCurr=1
      id_arg(i)=8
+	case ('-n')
+     IsNomalizeFlux=1
+     id_arg(i)=9
 
+	 case ('-ff')   !generate prbname.flx.out : flux summary
+      IsFluxout=1
+      IsProcessFlux=1
+      id_arg(i)=11
+    case ('-fa')   !generate prbname.adj.out : adjoint flux summary
+      IsFluxout=2
+      IsProcessFlux=1
+      id_arg(i)=11
+	  
+	case ('-chipath')   !generate prbname.adj.out : adjoint flux summary
+      IsChiPath=1
+      id_arg(i)=12
+	  
     case ('-offf90','-offpen')
-
-     IsOffPentran=1
+      IsOffPentran=1
     case ('-offtan', '-offtitan')
-     IsOffTitan=1
-
-     case ('-l','l','--log')
-      id_arg(i)=3
-  
+      IsOffTitan=1
     case ('-prbflx','-prb')
       IsPrbDotFlx=1
+    case('-nofido')
+      IsFidoSrc=0
     
- case ('-dot')
-  id_arg(i)=4 
- case('-w')
-   id_arg(i)=5
- case('-nd','--ndmesh')
-  id_arg(i)=6
+	case ('-offplt')
+      IsSkipGeometry=1
+    case ('-offpng')
+      IsPlotZlev=0
     
-  case('-nofido')
-    IsFidoSrc=0
+	case ('-ming')
+      flx_min_flag=2
+    case ('-maxg')
+      flx_max_flag=2
+    
+	case ('-min')
+      id_arg(i)=28
+      flx_min_flag=1
+    case ('-max')
+      id_arg(i)=29
+      flx_max_flag=1
+
+    case ('-plot', '-plotzyx')
+      id_arg(i)=30
+    case ('-xplot', '-plotx', '-xp')
+      id_arg(i)=31
+      IsXPlot=1
+    case ('-yplot','-ploty', '-yp')
+      id_arg(i)=32
+      IsYPlot=1
+    case ('-zplot','-plotz', '-zp')
+      id_arg(i)=33
+      IsZPlot=1
+    case ('-pngsize','-png', '-size')
+      id_arg(i)=34
+    case('-plotmsf','-msf')
+      id_arg(i)=35
+    case ('-z')
+      IsZSingle=1
+      id_arg(i)=36
+    case ('-color')
+      id_arg(i)=37
+    case ('-plot3d', '-3d','-3D')
+      id_arg(i)=38
+      Is3DPlot=1
+    case ('-3dpos')
+      id_arg(i)=39
+      Is3DPlot=1
+    case ('-nofm')
+      IsDrawFm=0
+    case('-log')
+      IsLogPlot=1
+    case ('-titan','-t')
+      IsOffTitan=0
+    case ('-gm', '-fgm')
+      IsFluxGM=1
+      IsProcessFlux=1
+    case ('-agm')
+      IsFluxGM=2
+      IsProcessFlux=1
+    case ('-fov')
+      IsFov=1
  !for binary heart-like input    
- case ('-hrt')
-   IsProcessHrt=1
-   id_arg(i)=40
+    case ('-hrt')
+      IsProcessHrt=1
+      id_arg(i)=40
  
- case ('-offplt')
-   IsSkipGeometry=1
- case ('-offpng')
-   IsPlotZlev=0
- case ('-min')
-   id_arg(i)=28
-   flx_min_flag=1
- case ('-max')
-   id_arg(i)=29
-   flx_max_flag=1
+    case ('-V', '-v')
+      call ShowVersion
 
- case ('-plot', '-plotzyx')
-   id_arg(i)=30
- case ('-xplot', '-plotx', '-xp')
-   id_arg(i)=31
-   IsXPlot=1
- case ('-yplot','-ploty', '-yp')
-   id_arg(i)=32
-   IsYPlot=1
- case ('-zplot','-plotz', '-zp')
-   id_arg(i)=33
-   IsZPlot=1
- case ('-pngsize','-png', '-size')
-   id_arg(i)=34
- case('-plotmsf','-msf')
-   id_arg(i)=35
- case ('-z')
-    IsZSingle=1
-    id_arg(i)=36
- case ('-color')
-    id_arg(i)=37
- case ('-plot3d', '-3d','-3D')
-   id_arg(i)=38
-   Is3DPlot=1
- case ('-3dpos')
-   id_arg(i)=39
-   Is3DPlot=1
- case ('-nofm')
-    IsDrawFm=0
- case('-log')
-    IsLogPlot=1
- case ('-titan','-t')
-   IsOffTitan=0
- case ('-gm', '-fgm')
-    IsFluxGM=1
-   IsProcessFlux=1
- case ('-agm')
-    IsFluxGM=2
-    IsProcessFlux=1
-
- case ('-ff')   !generate prbname.flx.out : flux summary
-    IsFluxout=1
-    IsProcessFlux=1
-    id_arg(i)=11
- case ('-fa')   !generate prbname.adj.out : adjoint flux summary
-   IsFluxout=2
-   IsProcessFlux=1
-   id_arg(i)=11
- case ('-fov')
-   IsFov=1
- case ('-V', '-v')
-    call ShowVersion
-
- case ('help','-h','-H','h','H','--help')
+    case ('help','-h','-H','h','H','--help')
       call DisplayHelp
- case ('colormap','-helpcm','helpcm')
-     call DisplayColorMap
+    case ('colormap','-helpcm','helpcm')
+      call DisplayColorMap
  
     case default
         
       Flag_arg: select case (id_arg(i-1))
        
-     case(1)  !-i
+      case(1)  !-i
 !         input_dir='./'//trim(buf(i))
          input_dir=trim(buf(i))
-     case(2)  !-f1
+      case(2)  !-f1
          flux_dir=trim(buf(i))
-     case(7) !-f2
-      ref_flux_dir=trim(buf(i))
-     case(8) !-f3
-      curr_dir=trim(buf(i))
-    
-     case(3)  !logfile name
+      case(3)  !logfile name
          outputfile(1)%fullname=trim(buf(i))
-     case(4)
-      IsSuccess=CharNum(buf(i), DotBit)
-      if(IsSuccess .eq. 0 ) then
-      DotBit=-5
-      write(*,"('GetArg: -dot flag argument fail','ignored -dot ', A,' using default Dotbit=-5 ')") &
-            trim(buf(i))
-      endif
-      case(5)
-       IsSuccess=CharNum(buf(i),max_warning)
-       if(IsSuccess .eq. 0 ) then
-         max_warning=5
-       write(*,"('GetArg: -w flag argument fail, ignored -w ', A, ' using default max_warning=5')")& 
-         trim(buf(i))
-       endif
-      case(6)
-        IsSuccess=CharNum(buf(i),ndmeth_global)
+      case(4)
+         IsSuccess=CharNum(buf(i), DotBit)
          if(IsSuccess .eq. 0 ) then
-         ndmeth_global= 2
-        write(*,"('GetArg: -nd flag argument fail, ignored -nd ',A, ' using default ndmeth_global=2 ')")& 
-         trim(buf(i))
-        endif
-	  case(9)
+            DotBit=-5
+            write(*,"('GetArg: -dot flag argument fail','ignored -dot ', A,' using default Dotbit=-5 ')") &
+              trim(buf(i))
+         endif
+      case(5)
+         IsSuccess=CharNum(buf(i),max_warning)
+         if(IsSuccess .eq. 0 ) then
+            max_warning=5
+            write(*,"('GetArg: -w flag argument fail, ignored -w ', A, ' using default max_warning=5')")& 
+              trim(buf(i))
+         endif
+      case(6)
+         IsSuccess=CharNum(buf(i),ndmeth_global)
+         if(IsSuccess .eq. 0 ) then
+            ndmeth_global= 2
+           write(*,"('GetArg: -nd flag argument fail, ignored -nd ',A, ' using default ndmeth_global=2 ')")& 
+              trim(buf(i))
+        endif 
+      case(7) !-f2
+         ref_flux_dir=trim(buf(i))
+      case(8) !-f3
+         curr_dir=trim(buf(i))
+      case(9)
 	    IsSuccess=CharFloat(buf(i),n_factor)
         if(IsSuccess .eq. 0 ) then
 		  nfile%fullname=trim(buf(i))
@@ -424,94 +428,102 @@ do i = 1, count
 		  n_factor=0.0
 		endif
 	  
-	  
+	  case(11)
+        IsSuccess=CharNum(buf(i),num_flx_out)
+        if(IsSuccess .eq. 0 ) then
+          num_flx_out=1
+          write(*,"('GetArg: multi volumn flux file off ')")
+        endif
+       
+	  case(12)
+	    ChiPath_dir=trim(buf(i))
 	  case(28)
 	    IsSuccess=CharFloat(buf(i),flx_min)
-		flx_min_flag=2
+		flx_min_flag=3
         if(IsSuccess .eq. 0 ) then
-         write(*,"('GetArg: -min flag argument fail, ignored ',A)") & 
+         write(*,"('GetArg: -min flag argument not present ',A, 'using default = min global flux')") & 
            trim(buf(i))  
 		 flx_min_flag=1
-		elseif (flx_min .lt. 0) then
-          write(*,"('GetArg: -min flag argument fail, mininum flux has to be positive, ignored ',A)")& 
-            trim(buf(i))
-		  flx_min=0.0
-		  flx_min_flag=1
+!		elseif (flx_min .lt. 0) then
+!          write(*,"('GetArg: -min flag argument fail, mininum flux has to be positive, ignored ',A)")& 
+!            trim(buf(i))
+!		  flx_min=0.0
+!		  flx_min_flag=1
 		endif
       case(29)
 	    IsSuccess=CharFloat(buf(i),flx_max)
-		flx_max_flag=2
+		flx_max_flag=3
         if(IsSuccess .eq. 0 ) then
-         write(*,"('GetArg: -max flag argument fail, ignored ',A,' using default n_factor=max global flux ')") & 
+         write(*,"('GetArg: -max flag argument not present ',A,' using default = max global flux ')") & 
            trim(buf(i))  
 		   flx_max_flag=1
-		elseif (flx_max .le. 0) then
-          write(*,"('GetArg: -max flag argument fail, mininum flux has to be positive, ignored ',A, ' using default n_factor=max global flux ')")& 
-            trim(buf(i))
-		  flx_max=0.0
-		  flx_max_flag=1
+!		elseif (flx_max .le. 0) then
+!          write(*,"('GetArg: -max flag argument fail, maxium flux has to be positive, ignored ',A, ' using default n_factor=max global flux ')")& 
+!            trim(buf(i))
+!		  flx_max=0.0
+!		  flx_max_flag=1
 		endif
-	case(30)
-       IsSuccess=CharNum(buf(i),MidPlot)
-       if(IsSuccess .eq. 0 ) then
-         MidPlot=1
-         write(*,"('GetArg: -plot flag argument fail, ignored ',A, ' using default plotting z levels ')")& 
-         trim(buf(i))
+	  case(30)
+        IsSuccess=CharNum(buf(i),MidPlot)
+        if(IsSuccess .eq. 0 ) then
+          MidPlot=1
+          write(*,"('GetArg: -plot flag argument fail, ignored ',A, ' using default plotting z levels ')")& 
+          trim(buf(i))
         endif
-    case (31)
-     call Str2Val(buf(i), rarg, IsSuccess)
-     if(IsSuccess .eq. 0) then 
-    num_xloc=num_xloc+1
-    id_arg(i)=31
-    if(num_xloc .gt. maxplot) then
-      write(*,"('GetArg: -xplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
-    else
-      xyzloc(num_xloc,1)=rarg
-    endif 
+      case (31)
+        call Str2Val(buf(i), rarg, IsSuccess)
+        if(IsSuccess .eq. 0) then 
+          num_xloc=num_xloc+1
+          id_arg(i)=31
+          if(num_xloc .gt. maxplot) then
+            write(*,"('GetArg: -xplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
+          else
+            xyzloc(num_xloc,1)=rarg
+          endif 
        else
-    write(*,"('GetArg: -xplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
-    endif
-   case (32)
-     call Str2Val(buf(i), rarg, IsSuccess)
-     if(IsSuccess .eq. 0) then 
-    num_yloc=num_yloc+1
-    id_arg(i)=32
-    if(num_yloc .gt. maxplot) then
-    write(*,"('GetArg: -yplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
+          write(*,"('GetArg: -xplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
+       endif
+     case (32)
+       call Str2Val(buf(i), rarg, IsSuccess)
+       if(IsSuccess .eq. 0) then 
+         num_yloc=num_yloc+1
+         id_arg(i)=32
+         if(num_yloc .gt. maxplot) then
+           write(*,"('GetArg: -yplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
+         else
+           xyzloc(num_yloc,2)=rarg
+         endif
        else
-    xyzloc(num_yloc,2)=rarg
-    endif
-  else
-    write(*,"('GetArg: -yplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
-  endif
-   case (33)
-     call Str2Val(buf(i), rarg, IsSuccess)
-     if(IsSuccess .eq. 0) then 
-    num_zloc=num_zloc+1
-    id_arg(i)=33
-    if(num_zloc .gt. maxplot) then
-    write(*,"('GetArg: -zplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
+         write(*,"('GetArg: -yplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
+       endif
+     case (33)
+       call Str2Val(buf(i), rarg, IsSuccess)
+       if(IsSuccess .eq. 0) then 
+         num_zloc=num_zloc+1
+         id_arg(i)=33
+         if(num_zloc .gt. maxplot) then
+           write(*,"('GetArg: -zplot flag argument, too many positions, after ', I0, ' ignored')")   maxplot
+         else
+           xyzloc(num_zloc,3)=rarg
+         endif
        else
-       xyzloc(num_zloc,3)=rarg
-    endif
-  else
-    write(*,"('GetArg: -zplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
-  endif
-   case(34)
-     call Str2Val(buf(i), rarg, IsSuccess)
-     if(IsSuccess .eq. 0) then 
-    if(rarg .gt. 9) then
-    write(*,"('GetArg: -plotsize factor too big, using 9 ')")   
+          write(*,"('GetArg: -zplot flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
+       endif
+    case(34)
+      call Str2Val(buf(i), rarg, IsSuccess)
+      if(IsSuccess .eq. 0) then 
+         if(rarg .gt. 9) then
+            write(*,"('GetArg: -plotsize factor too big, using 9 ')")   
      
-       elseif(rarg .lt. 0.1) then
-       write(*,"('GetArg: -plotsize factor too small , using 0.1 ')")
-       else
-     PngSizeFactor=rarg
-   endif
-  else
-    write(*,"('GetArg: -pngsize flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
-  endif
-   case (35)
+         elseif(rarg .lt. 0.1) then
+           write(*,"('GetArg: -plotsize factor too small , using 0.1 ')")
+         else
+           PngSizeFactor=rarg
+         endif
+      else
+        write(*,"('GetArg: -pngsize flag argument, unregnized number: ',A, ' ignored')")   trim(buf(i))
+      endif
+    case (35)
      IsSuccess=CharNum(buf(i),MatSrcFlx)
      if(IsSuccess .eq. 0 ) then
        MatSrcFlx=1
@@ -542,24 +554,17 @@ do i = 1, count
    case (39)
     call Str2Val(buf(i), rarg, IsSuccess)
 	if(IsSuccess .eq. 0) then 
-    num_vpos=num_vpos+1
-    id_arg(i)=39
-    if(num_vpos .gt. 3) then
-      write(*,"('GetArg: -3dpos flag argument, too many values, first three entries are used')")   
-    else
+      num_vpos=num_vpos+1
+      id_arg(i)=39
+      if(num_vpos .gt. 3) then
+        write(*,"('GetArg: -3dpos flag argument, too many values, first three entries are used')")   
+      else
        view_pos(num_vpos)=rarg
+      endif
+    else
+      write(*,"('GetArg: -3dpos without argument, using view point (3,3,3) default')")   
     endif
-  else
-    write(*,"('GetArg: -3dpos without argument, using view point (3,3,3) default')")   
-  endif
-  
-   case(11)
-       IsSuccess=CharNum(buf(i),num_flx_out)
-       if(IsSuccess .eq. 0 ) then
-          num_flx_out=1
-          write(*,"('GetArg: multi volumn flux file off ')")
-       endif
-
+ 
    case (40)
        hrt_filename=trim(buf(i))  
    case default
@@ -697,6 +702,12 @@ write(*,"(A)")  '    flux plot scale : maxium, default max among all groups   '
 
 write(*,"(A)")  '-min  <flux min>                         '
 write(*,"(A)")  '    flux plot scale : minmum, warning lower than the minmum points will black out '
+
+write(*,"(A)")  '-maxg                          '
+write(*,"(A)")  '    flux plot scale : max for one group   '
+
+write(*,"(A)")  '-ming                           '
+write(*,"(A)")  '    flux plot scale : minmum for one group '
 
 write(*,"(A)")  '-nofm                         '
 write(*,"(A)")  '    turn off Fine Mesh lines in all coarse meshes   '

@@ -438,24 +438,37 @@ else
 endif
  
 case (3)
-call GetCutLimit(plot_loc, idx, ipx, lim_val)
-if(lim_val(1) .eq. 0 ) then
-  if(glb_fluxset(set_number)%max_glb_flux_grp(curg_grp) .gt. 0) then
-    lim_val(1)=glb_fluxset(set_number)%max_glb_flux_grp(curg_grp)
-  else
-   lim_val(1)=1.0
-  endif
-endif
 
-if(flx_max_flag .ne. 0) lim_val(1)=flx_max
-if(flx_min_flag .ne. 0) lim_val(2)=flx_min
+call GetCutLimit(plot_loc, idx, ipx, lim_val)
+
+select case (flx_max_flag)
+  case (1) !global limit
+    lim_val(1)=glb_fluxset(set_number)%max_glb_flux
+  case (2) !global group limit
+    lim_val(1)=glb_fluxset(set_number)%max_glb_flux_grp(curg_grp)
+ case (3) !user defined limit on command line
+    lim_val(1)=flx_max
+end select
+
+select case (flx_max_flag)
+  case (1) !global limit
+    lim_val(2)=glb_fluxset(set_number)%min_glb_flux
+  case (2) !global group limit
+    lim_val(2)=glb_fluxset(set_number)%min_glb_flux_grp(curg_grp)
+  case (3) !user defined limit on command line
+    lim_val(2)=flx_min
+end select
+
+if(lim_val(1) .eq. lim_val(2) ) then
+    lim_val(1)=1.05*lim_val(1)
+endif
 
 if(IsLogPlot .eq. 1) then
  lim_val(1)=log10(lim_val(1))
  if(lim_val(1) .le. 0) then
- lim_val(1)=int(lim_val(1))*1.0
+   lim_val(1)=int(lim_val(1))*1.0
  else
- lim_val(1)=int(lim_val(1))+1.0
+   lim_val(1)=int(lim_val(1))+1.0
  endif
 
  if(lim_val(2) .gt. 0) then
@@ -468,12 +481,11 @@ if(IsLogPlot .eq. 1) then
  else
    lim_val(2)=log10(tiny)
  endif
-if(lim_val(1) - lim_val(2) .le. 0) lim_val(2)=lim_val(1)-1
+ if(lim_val(1) - lim_val(2) .le. 0) lim_val(2)=lim_val(1)-1
  fseg=1
 else
- fseg=lim_val(1)/20
+  fseg=abs(lim_val(1)-lim_val(2))/20
 endif
-
 
 if(Is3DPlot .eq. 0) then
   Call GRAF3(x_size(1),x_size(2),x_size(1),x_size(2),&

@@ -38,10 +38,10 @@ integer :: IsNomalizeFlux=0
 !output penmsh .out files 
 integer :: IsDotOut=0
 !ooutput avg. flux for each material
-integer :: IsFluxGM=0
+integer :: IsFluxGM=0, IsChiPath=0
 
 !inputfile directory
-character*80 input_dir,flux_dir, ref_flux_dir, curr_dir
+character*80 input_dir,flux_dir, ref_flux_dir, curr_dir, ChiPath_dir
 character*80,dimension(:),allocatable :: fluxset_dir
 integer, dimension(:,:), allocatable :: grp_flag
 integer :: num_group_eff=0
@@ -78,9 +78,9 @@ integer :: IsVenusDose=0
 
 type tGlobalfluxset
 
- real :: max_glb_flux=0
+ real :: max_glb_flux=0, min_glb_flux=0
  real :: avg_glb_flux=0
- real,dimension(:),allocatable :: max_glb_flux_grp, avg_glb_flux_grp
+ real,dimension(:),allocatable :: max_glb_flux_grp, min_glb_flux_grp, avg_glb_flux_grp
  
  character(len=80) :: fluxfile_dir=''
  character(len=80) :: fluxfile_name=''
@@ -378,9 +378,9 @@ end type
 
 ! flux set 
 type tFluxset
-  real ::	max_loc_flux=0
+  real ::	max_loc_flux=0, min_loc_flux
   real ::  avg_loc_flux
-  real, dimension(:), allocatable :: max_loc_flux_grp, avg_loc_flux_grp
+  real, dimension(:), allocatable :: max_loc_flux_grp, min_loc_flux_grp, avg_loc_flux_grp
   type(tFsetg), dimension(:), allocatable :: locg_set
   
 end type tFluxset

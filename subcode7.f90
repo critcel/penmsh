@@ -21,8 +21,10 @@ allocate(glb_fluxset(1+IsRefFlux))
 do set=1, 1+IsRefFlux
   
   allocate(glb_fluxset(set)%max_glb_flux_grp(num_group), &
+           glb_fluxset(set)%min_glb_flux_grp(num_group), &
            glb_fluxset(set)%avg_glb_flux_grp(num_group))
   glb_fluxset(set)%max_glb_flux_grp=0
+  glb_fluxset(set)%min_glb_flux_grp=0
   glb_fluxset(set)%avg_glb_flux_grp=0
   
 !  glb_fluxset(set)%fluxfile_name=prbname
@@ -44,11 +46,13 @@ do k=1, num_zlev
       allocate(zlevel(k)%cm_zlev(i,j)%fluxset(1+IsRefFLux))
     
       do set=1, 1+IsRefFlux
-      allocate(zlevel(k)%cm_zlev(i,j)%fluxset(set)%max_loc_flux_grp(num_group),&
-        zlevel(k)%cm_zlev(i,j)%fluxset(set)%avg_loc_flux_grp(num_group),&
-        zlevel(k)%cm_zlev(i,j)%fluxset(set)%locg_set(num_group) ,STAT=sv)
-          zlevel(k)%cm_zlev(i,j)%fluxset(set)%max_loc_flux_grp=0
-        zlevel(k)%cm_zlev(i,j)%fluxset(set)%avg_loc_flux_grp=0
+       allocate(zlevel(k)%cm_zlev(i,j)%fluxset(set)%max_loc_flux_grp(num_group),&
+	      zlevel(k)%cm_zlev(i,j)%fluxset(set)%min_loc_flux_grp(num_group),&
+          zlevel(k)%cm_zlev(i,j)%fluxset(set)%avg_loc_flux_grp(num_group),&
+          zlevel(k)%cm_zlev(i,j)%fluxset(set)%locg_set(num_group) ,STAT=sv)
+       zlevel(k)%cm_zlev(i,j)%fluxset(set)%max_loc_flux_grp=0
+       zlevel(k)%cm_zlev(i,j)%fluxset(set)%min_loc_flux_grp=0
+       zlevel(k)%cm_zlev(i,j)%fluxset(set)%avg_loc_flux_grp=0
 !        allocate(zlevel(k)%cm_zlev(i,j)%fluxset(set)%loc_flux(zlevel(k)%cm_zlev(i,j)%fine(1),&
 !          zlevel(k)%cm_zlev(i,j)%fine(2),zlevel(k)%cm_zlev(i,j)%fine(3),&
 !          num_group), STAT=sv)
@@ -94,13 +98,15 @@ integer sv,lncount
 character*80  flxname1, flxname2
 logical ex1,ex2
 real temp, tempbuf(2)
+integer num_loaded
+
 prbname_len=len_trim(prbname)
 
 curfile%ext='flx'
 curfile%fullname=''
 curfile%dir=glb_fluxset(set_number)%fluxfile_dir
 
-
+num_loaded=0
 do grp=1, num_group
  
 !looking for prb#.flx or prbname#.flx
@@ -171,73 +177,139 @@ endif
        call TrapMemError(1)
      endif
      
-     do ink=1,zlevel(k)%cm_zlev(i,j)%fine(3)
-       do inj=1 , zlevel(k)%cm_zlev(i,j)%fine(2)
-         do ini=1 , zlevel(k)%cm_zlev(i,j)%fine(1)
-         lncount=lncount+1   
-!        read(grp,*, err=503) tmpx,tmpy,tmpz,zlevel(k)%cm_zlev(i,j)%flux(ini,inj,ink,grp)
-         read(cur_fileunit,*,end=7103, err=7102) (temp, m=1, flag(1)-1), tempbuf(1)
+    do ink=1,zlevel(k)%cm_zlev(i,j)%fine(3)
+    do inj=1 , zlevel(k)%cm_zlev(i,j)%fine(2)
+    do ini=1 , zlevel(k)%cm_zlev(i,j)%fine(1)
+     lncount=lncount+1   
+!    read(grp,*, err=503) tmpx,tmpy,tmpz,zlevel(k)%cm_zlev(i,j)%flux(ini,inj,ink,grp)
+     read(cur_fileunit,*,end=7103, err=7102) (temp, m=1, flag(1)-1), tempbuf(1)
+	 if(i*j*k*ink*inj*ini .eq. 1 .and. set_number .eq. 1) then
+	  zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp)=tempbuf(1)
+	  zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%min_loc_flux_grp(grp)=tempbuf(1)
+	  glb_fluxset(set_number)%max_glb_flux_grp(grp)=tempbuf(1)
+	  glb_fluxset(set_number)%min_glb_flux_grp(grp)=tempbuf(1)
+	 endif
+	 
 	 
 	 if(set_number .eq. 2) then
 	  tempbuf(2)=zlevel(k)%cm_zlev(i,j)%fluxset(1)%locg_set(grp)%locg_flux(ini,inj,ink)
 	  if(tempbuf(1) .ne. 0) then
-	    tempbuf(1)=(tempbuf(2)-tempbuf(1))/tempbuf(1)
-          elseif(tempbuf(2) .ne. 0) then
-	    tempbuf(1)=(tempbuf(2)-tempbuf(1))/tempbuf(2)
+	    tempbuf(2)=(tempbuf(2)-tempbuf(1))/tempbuf(1)
+      elseif(tempbuf(2) .ne. 0) then
+	    tempbuf(2)=(tempbuf(2)-tempbuf(1))/tempbuf(2)
 	  endif
+	  zlevel(k)%cm_zlev(i,j)%fluxset(1)%locg_set(grp)%locg_flux(ini,inj,ink)=tempbuf(2)
+      
+	  if(i*j*k*ink*inj*ini .eq. 1 ) then
+	   zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp)=tempbuf(2)
+	   zlevel(k)%cm_zlev(i,j)%fluxset(1)%min_loc_flux_grp(grp)=tempbuf(2)
+	   glb_fluxset(1)%max_glb_flux_grp(grp)=tempbuf(2)
+	   glb_fluxset(1)%min_glb_flux_grp(grp)=tempbuf(2)
+	  endif
+	
+      if(tempbuf(2) .gt. zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp) ) then
+       zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp)=tempbuf(2)
+      endif
+	  if(tempbuf(2) .lt. zlevel(k)%cm_zlev(i,j)%fluxset(1)%min_loc_flux_grp(grp) ) then
+        zlevel(k)%cm_zlev(i,j)%fluxset(1)%min_loc_flux_grp(grp)=tempbuf(2)
+      endif
+	 
 	 endif
-	  zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%locg_set(grp)%locg_flux(ini,inj,ink)=tempbuf(1)
+	 
+	 zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%locg_set(grp)%locg_flux(ini,inj,ink)=tempbuf(1)
          
-          zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)=&
-              zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)+tempbuf(1)
+     zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)=&
+         zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)+tempbuf(1)
                  
-          if(tempbuf(1) .gt. zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp) ) then
-            zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp)=tempbuf(1)
-          endif
-	     enddo !end ini
-           enddo !end inj
-         enddo !ink
-     !local avg flux by group
-       zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)=&
-         zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)/(&
-         zlevel(k)%cm_zlev(i,j)%fine(3)*zlevel(k)%cm_zlev(i,j)%fine(2)*&
-                  zlevel(k)%cm_zlev(i,j)%fine(1))
+     if(tempbuf(1) .gt. zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp) ) then
+       zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp)=tempbuf(1)
+     endif
+	 if(tempbuf(1) .lt. zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%min_loc_flux_grp(grp) ) then
+       zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%min_loc_flux_grp(grp)=tempbuf(1)
+     endif
+	     
+    enddo !end ini
+    enddo !end inj
+    enddo !ink
+    !local avg flux by group
+    zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)=&
+       zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)/(&
+       zlevel(k)%cm_zlev(i,j)%fine(3)*zlevel(k)%cm_zlev(i,j)%fine(2)*&
+       zlevel(k)%cm_zlev(i,j)%fine(1))
      !add up global avg flux by grp
-       glb_fluxset(set_number)%avg_glb_flux_grp(grp)=&
-         glb_fluxset(set_number)%avg_glb_flux_grp(grp)+&
-         zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)*&
-         zlevel(k)%cm_zlev(i,j)%cm_vol 
+     glb_fluxset(set_number)%avg_glb_flux_grp(grp)=&
+       glb_fluxset(set_number)%avg_glb_flux_grp(grp)+&
+       zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%avg_loc_flux_grp(grp)*&
+       zlevel(k)%cm_zlev(i,j)%cm_vol 
 
      if(zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp) .gt. &
          glb_fluxset(set_number)%max_glb_flux_grp(grp)) then
-                     
        glb_fluxset(set_number)%max_glb_flux_grp(grp)=&
          zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp)
      endif
+	 
+	 if(zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%min_loc_flux_grp(grp) .lt. &
+         glb_fluxset(set_number)%min_glb_flux_grp(grp)) then
+       glb_fluxset(set_number)%min_glb_flux_grp(grp)=&
+         zlevel(k)%cm_zlev(i,j)%fluxset(set_number)%max_loc_flux_grp(grp)
+     endif
+	 
+     if(set_number .eq. 2) then  
+	   if(zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp) .gt. &
+         glb_fluxset(1)%max_glb_flux_grp(grp)) then
+            glb_fluxset(1)%max_glb_flux_grp(grp)=&
+              zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp)
+        endif
+	 
+	   if(zlevel(k)%cm_zlev(i,j)%fluxset(1)%min_loc_flux_grp(grp) .lt. &
+         glb_fluxset(1)%min_glb_flux_grp(grp)) then
+           glb_fluxset(1)%min_glb_flux_grp(grp)=&
+             zlevel(k)%cm_zlev(i,j)%fluxset(1)%max_loc_flux_grp(grp)
+       endif
+	 endif
+   
    enddo !i
   enddo !j
  enddo !k
  close(cur_fileunit)
  
  grp_flag(grp, set_number)=1
-
+ num_loaded=num_loaded+1
  glb_fluxset(set_number)%avg_glb_flux_grp(grp)=&
             glb_fluxset(set_number)%avg_glb_flux_grp(grp)/total_vol
  
  glb_fluxset(set_number)%avg_glb_flux=glb_fluxset(set_number)%avg_glb_flux+&
                                  glb_fluxset(set_number)%avg_glb_flux_grp(grp)
  
+ if(num_loaded .eq. 1) then
+  glb_fluxset(set_number)%max_glb_flux=glb_fluxset(set_number)%max_glb_flux_grp(grp)
+  glb_fluxset(set_number)%min_glb_flux=glb_fluxset(set_number)%min_glb_flux_grp(grp)
+ endif
+ 
  if(glb_fluxset(set_number)%max_glb_flux_grp(grp) .gt. glb_fluxset(set_number)%max_glb_flux) then
    glb_fluxset(set_number)%max_glb_flux=glb_fluxset(set_number)%max_glb_flux_grp(grp)
  endif  
-
+ 
+ if(glb_fluxset(set_number)%min_glb_flux_grp(grp) .lt. glb_fluxset(set_number)%min_glb_flux) then
+   glb_fluxset(set_number)%min_glb_flux=glb_fluxset(set_number)%min_glb_flux_grp(grp)
+ endif  
+ 
+ if(set_number .eq. 2) then
+  if(num_loaded .eq. 1) then
+   glb_fluxset(1)%max_glb_flux=glb_fluxset(1)%max_glb_flux_grp(grp)
+   glb_fluxset(1)%min_glb_flux=glb_fluxset(1)%min_glb_flux_grp(grp)
+  endif
+  if(glb_fluxset(1)%max_glb_flux_grp(grp) .gt. glb_fluxset(1)%max_glb_flux) then
+    glb_fluxset(1)%max_glb_flux=glb_fluxset(1)%max_glb_flux_grp(grp)
+  endif  
+ 
+  if(glb_fluxset(1)%min_glb_flux_grp(grp) .lt. glb_fluxset(1)%min_glb_flux) then
+   glb_fluxset(1)%min_glb_flux=glb_fluxset(1)%min_glb_flux_grp(grp)
+  endif  
+ endif
+ 
 enddo !grp
 
-if(flx_max_flag .eq. 1) then
-if(flx_max .lt. glb_fluxset(set_number)%max_glb_flux) &
-flx_max=glb_fluxset(set_number)%max_glb_flux
-
-endif
 
 num_group_eff=sum(grp_flag(:,set_number))
 if(num_group_eff .ne. 0) then
