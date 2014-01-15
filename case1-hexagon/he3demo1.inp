@@ -1,0 +1,95 @@
+/ ncx, ncy, maxfinz  (maxfinz < 0, add z-fine per cm below y-fine)
+5,5,-30 
+/ x-fine mesh per fuel pin cm (# seq along cm rows of x)   
+ 6 6  8   6    6 
+ 6 9 15   9    6 
+ 6 9 160 120   6 
+ 6 9 160 120   6 
+ 6 6  8 6      6 
+/ y-fine me h per fuel pin cm (# seq ... y)  
+ 6  6  6  6   6
+ 6  9  9  9   6 
+ 8 15 160 160  8
+ 6  9 120 120  6
+ 6  6  6  6  6 
+/ z-fine me h per fuel pin cm (# seq ... y)  
+20 20 20 20 20
+20 20 20 20 20
+20 20 20 20 20
+20 20 20 20 20
+20 20 20 20 20
+/ cm bounds along x-axis (in seq ...x)     
+-5.0  -3.0  -1.28  1.28  3.0  5.0 
+/ cm bounds along y-axis (in seq ...x)       
+-5.0  -3.0  -1.28  1.28  3.0  5.0 
+/ cm type, each cm (<0 =look for overlay)  
+1 1 1 1  1
+1 1 1 1  1
+1 1 -1  131 1
+1 1 131 131 1
+1 1 1 1 1
+/ number of material regions per coarse mesh      
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+/  1 coarse mesh material     
+6 
+/ 2 coarse mesh material     
+6
+/ 3 coarse mesh material     
+6
+/ 4 coarse mesh material     
+6 
+/ 5 coarse mesh material     
+6
+/  6 coarse mesh material     
+6
+/ 7 coarse mesh material     
+10
+/ 8 coarse mesh material     
+10
+/ 9 coarse mesh material     
+10
+/10 coarse mesh material     
+6  
+/  11 coarse mesh material     
+6
+/ 12 coarse mesh material     
+10
+/ 13 coarse mesh material     
+10
+/ 14 coarse mesh material     
+10
+/ 15 coarse mesh material     
+6 
+/  16 coarse mesh material     
+6
+/ 17 coarse mesh material     
+10
+/ 18 coarse mesh material     
+10
+/ 19 coarse mesh material     
+10
+/ 20 coarse mesh material     
+6 
+/  21 coarse mesh material     
+6
+/ 22 coarse mesh material     
+6
+/ 23 coarse mesh material     
+6
+/ 24 coarse mesh material     
+6
+/ 25 coarse mesh material     
+6
+/ cm overlay (#over, shape 2=cylinder, mat#1.., xlo1.., xhi1.., ylo1.., yhi1..) 
+2
+-6 -6
+16 -16
+0 0  0 0.2
+10 10 1 0.34641 0 0   
+0 0  0 0.18
+10 10 1 0.34641 0 0 
+9 4 2 10 3 11 4 13 5 11  7 5 11 4 14 3 9 2 8 3 4Q20 
