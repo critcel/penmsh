@@ -1,0 +1,227 @@
+ PENTRAN CODE PARAMETERS FOR THIS PROBLEM 
+  maxmem,  maxpcs,  maxgcm,  maxxsg
+    2225        8       18        2
+  maxcmc,  maxcrs,  maxmmc,  maxmed,  maxfmc,  maxfin
+       9        3     2250       25     2250       25
+  maxgrp,  maxglc,  maxswp,  maxqdm,  maxmat,  maxleg
+       2        1        4       10        4        0
+  maxsrc,  maxslc,  maxcmr,  maxlin,  maxarr,  nctlim
+       0        0       18      269     2251     1898
+-----------------Start Problem Deck-------------------
+smlwr                                                                          
+Small LWR Problem                                                              
+This problem is part of the 3-D Neutron                                        
+Transport Benchmarks by Takeda and Ikeda                                       
+NEACRP-L-330                                                                   
+                                                                               
+Case 2 - Control Rod Inserted                                                  
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+/                                                                              
+/-------------BLOCK I (GENERAL PROBLEM info.)-----------                       
+/                                                                              
+  ngeom=3d                                                                     
+  modadj=0                                                                     
+  ngroup=2                                                                     
+  isn=8                                                                        
+  nmatl=4                                                                      
+  ixcrs=3                                                                      
+  jycrs=3                                                                      
+  kzcrs=2                                                                      
+  lodbal=0                                                                     
+  timcut=0.                                                                    
+  tolmgd=-.200                                                                 
+  decmpv=-2 -2 -2  T                                                           
+/                                                                              
+/------------------BLOCK II(geometry)------------------                        
+/                                                                              
+  xmesh=.00   15.00   20.00   25.00                                            
+/                                                                              
+/ fine mesh distribution for zlev=   1                                         
+/                                                                              
+  ixfine=15   5   5                                                            
+  15   5   5                                                                   
+  15   5   5                                                                   
+/                                                                              
+/ fine mesh distribution for zlev=   2                                         
+/                                                                              
+  15   5   5                                                                   
+  15   5   5                                                                   
+  15   5   5                                                                   
+/                                                                              
+/   medium mesh distribution for zlev=   1                                     
+/                                                                              
+  ixmed=7   2   2                                                              
+   7   2   2                                                                   
+   7   2   2                                                                   
+/                                                                              
+/   medium mesh distribution for zlev=   2                                     
+/                                                                              
+   7   2   2                                                                   
+   7   2   2                                                                   
+   7   2   2                                                                   
+/                                                                              
+/   coarse-mesh y-position                                                     
+/                                                                              
+  ymesh=.00    5.00   15.00   25.00                                            
+/                                                                              
+/  number of fine-mesh along y for zlev=  1                                    
+/                                                                              
+  jyfine=5   5   5                                                             
+  10  10  10                                                                   
+  10  10  10                                                                   
+/                                                                              
+/                                                                              
+/  number of fine-mesh along y for zlev=  2                                    
+/                                                                              
+   5   5   5                                                                   
+  10  10  10                                                                   
+  10  10  10                                                                   
+/                                                                              
+/ number of medium-mesh along y for zlev=  1                                   
+/                                                                              
+  jymed=2   2   2                                                              
+   5   5   5                                                                   
+   5   5   5                                                                   
+/                                                                              
+/ number of medium-mesh along y for zlev=  2                                   
+/                                                                              
+   2   2   2                                                                   
+   5   5   5                                                                   
+   5   5   5                                                                   
+/                                                                              
+/   z coarse-mesh boundaries                                                   
+/                                                                              
+  zmesh=.00   15.00   25.00                                                    
+/                                                                              
+/   number of fine-mesh along z, per coarse-mesh for z-level=  1               
+/                                                                              
+  kzfine=15 15 15                                                              
+        15 15 15                                                               
+        15 15 15                                                               
+/                                                                              
+/   number of fine-mesh along z, per coarse-mesh for z-level=  2               
+/                                                                              
+        10 10 10                                                               
+        10 10 10                                                               
+        10 10 10                                                               
+/                                                                              
+/    number of medium-mesh along z, per coarse-mesh for z-level=  1            
+/                                                                              
+  kzmed=7  7  7                                                                
+        7  7  7                                                                
+        7  7  7                                                                
+/                                                                              
+/    number of medium-mesh along z, per coarse-mesh for z-level=  2            
+/                                                                              
+        5  5  5                                                                
+        5  5  5                                                                
+        5  5  5                                                                
+/                                                                              
+/  material distribution for zlev=  1                                          
+/                                                                              
+    nmattp=1                                                                   
+ 15R1     74Q15                                                                
+    nmattp=2                                                                   
+  5R3     74Q5                                                                 
+    nmattp=3                                                                   
+  5R2     74Q5                                                                 
+    nmattp=4                                                                   
+ 15R1    149Q15                                                                
+    nmattp=5                                                                   
+  5R2    149Q5                                                                 
+    nmattp=6                                                                   
+  5R2    149Q5                                                                 
+    nmattp=7                                                                   
+ 15R2    149Q15                                                                
+    nmattp=8                                                                   
+  5R2    149Q5                                                                 
+    nmattp=9                                                                   
+  5R2    148Q5                                                                 
+  5R2                                                                          
+/                                                                              
+/  material distribution for zlev=  2                                          
+/                                                                              
+    nmattp=10                                                                  
+ 15R2     49Q15                                                                
+    nmattp=11                                                                  
+  5R3     49Q5                                                                 
+    nmattp=12                                                                  
+  5R2     49Q5                                                                 
+    nmattp=13                                                                  
+ 15R2     99Q15                                                                
+    nmattp=14                                                                  
+  5R2     99Q5                                                                 
+    nmattp=15                                                                  
+  5R2     99Q5                                                                 
+    nmattp=16                                                                  
+ 15R2     99Q15                                                                
+    nmattp=17                                                                  
+  5R2     99Q5                                                                 
+    nmattp=18                                                                  
+  5R2     98Q5                                                                 
+  5R2                                                                          
+  flxini=18R1.0                                                                
+  mathmg=18R0   T                                                              
+/                                                                              
+/ ------------- BLOCK III (CROSS SECTIONS) -----------                         
+/                                                                              
+  lib=file:smlwr.xs                                                            
+  legord=0  legoxs=0                                                           
+  nxtyp=0                                                                      
+  ihm=5                                                                        
+  iht=3  ihs=4                                                                 
+  ihng=0                                                                       
+  chig=1.0 7R0.0                                                               
+  nxcmnt=1   T                                                                 
+/                                                                              
+/------------- BLOCK IV (CONTROL OPTIONS) --------------                       
+/                                                                              
+  ncoupl=1                                                                     
+  nprtyp=0                                                                     
+  nrdblk=0                                                                     
+  tolin=.000500                                                                
+  tolout=.0000500                                                               
+  dtwmxw=.95  0.02 1.00                                                                 
+  maxitr=150 5                                                                 
+/ maxitr=1 1                                                                   
+  methit=1                                                                     
+/                                                                              
+/   Starting or selected differencing scheme, for each coarse-mesh, for z-level
+/                                                                              
+  ndmeth=18R1                                                                 
+/  2  2  2                                                                     
+/         2  2  2                                                              
+/         2  2  2                                                              
+/                                                                              
+/   Starting or selected differencing scheme, for each coarse-mesh, for z-level
+/                                                                              
+/         2  2  2                                                              
+/         2  2  2                                                              
+/         2  2  2                                                              
+  nzonrb=18 0.9, 0                                                             
+  methac=1  T                                                                  
+/                                                                              
+/-------------------BLOCK V (Source)--------------------                       
+/                                                                              
+ rkdef=0.95823 kextrp=1 T                                                      
+/                                                                              
+/------------- BLOCK VI (BOUNDARY CONDITIONS) ---------                        
+/                                                                              
+/ var   type  Group albedos                                                    
+  ibback=1    2R1                                                              
+  ibfrnt=0                                                                     
+  jbeast=1    2R1                                                              
+  jbwest=0                                                                     
+  kbsout=1    2R1                                                              
+  kbnort=0       T                                                             
+/                                                                              
+/------------- BLOCK VII (PRINTING CONDITIONS) ---------                       
+/                                                                              
+/                                                                              
+  nxspr=1 nmatpr=0 ngeopr=1 nsrcpr=0 nsumpr=1                                  
+  meshpr=0                                                                     
+  nfdump=1 nsdump=0 nadump=0  T                                                
+                                                                               

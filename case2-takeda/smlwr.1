@@ -1,0 +1,752 @@
+  
+                         3-D Transport Code PENTRAN:       
+                    Parallel Environment Neutral particle  
+                       Transport in Cartesian Geometry     
+                          with MPI/ANSI FORTRAN-90         
+  
+                                Version 9.41h              
+  
+                             Principal Developers:         
+                                  G. Sjoden                
+                                 A. Haghighat              
+  
+                           Contributing Researchers:       
+                           V. Kucukboyaci M. Hunter        
+                           G. Longoni     B. Dionne        
+                           C. Yi          B. Petrovic      
+  
+                             HSW Technologies LLC          
+                                   Sep 2008                
+  
+-----------------------------------------------------------------------------
+ Problem Input Deck (As Read):         Memory Required:     24.9 Mb/Processor 
+ Input Deck file: smlwr.pen                                                         
+-----------------------------------------------------------------------------
+ PENTRAN CODE PARAMETERS FOR THIS PROBLEM 
+  maxmem,  maxpcs,  maxgcm,  maxxsg
+    2225        8       18        2
+  maxcmc,  maxcrs,  maxmmc,  maxmed,  maxfmc,  maxfin
+       9        3     2250       25     2250       25
+  maxgrp,  maxglc,  maxswp,  maxqdm,  maxmat,  maxleg
+       2        1        4       10        4        0
+  maxsrc,  maxslc,  maxcmr,  maxlin,  maxarr,  nctlim
+       0        0       18      269     2251     1898
+-----------------Start Problem Deck-------------------
+smlwr                                                                          
+Small LWR Problem                                                              
+This problem is part of the 3-D Neutron                                        
+Transport Benchmarks by Takeda and Ikeda                                       
+NEACRP-L-330                                                                   
+                                                                               
+Case 2 - Control Rod Inserted                                                  
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+/                                                                              
+/-------------BLOCK I (GENERAL PROBLEM info.)-----------                       
+/                                                                              
+  ngeom=3d                                                                     
+  modadj=0                                                                     
+  ngroup=2                                                                     
+  isn=8                                                                        
+  nmatl=4                                                                      
+  ixcrs=3                                                                      
+  jycrs=3                                                                      
+  kzcrs=2                                                                      
+  lodbal=0                                                                     
+  timcut=0.                                                                    
+  tolmgd=-.200                                                                 
+  decmpv=-2 -2 -2  T                                                           
+/                                                                              
+/------------------BLOCK II(geometry)------------------                        
+/                                                                              
+  xmesh=.00   15.00   20.00   25.00                                            
+/                                                                              
+/ fine mesh distribution for zlev=   1                                         
+/                                                                              
+  ixfine=15   5   5                                                            
+  15   5   5                                                                   
+  15   5   5                                                                   
+/                                                                              
+/ fine mesh distribution for zlev=   2                                         
+/                                                                              
+  15   5   5                                                                   
+  15   5   5                                                                   
+  15   5   5                                                                   
+/                                                                              
+/   medium mesh distribution for zlev=   1                                     
+/                                                                              
+  ixmed=7   2   2                                                              
+   7   2   2                                                                   
+   7   2   2                                                                   
+/                                                                              
+/   medium mesh distribution for zlev=   2                                     
+/                                                                              
+   7   2   2                                                                   
+   7   2   2                                                                   
+   7   2   2                                                                   
+/                                                                              
+/   coarse-mesh y-position                                                     
+/                                                                              
+  ymesh=.00    5.00   15.00   25.00                                            
+/                                                                              
+/  number of fine-mesh along y for zlev=  1                                    
+/                                                                              
+  jyfine=5   5   5                                                             
+  10  10  10                                                                   
+  10  10  10                                                                   
+/                                                                              
+/                                                                              
+/  number of fine-mesh along y for zlev=  2                                    
+/                                                                              
+   5   5   5                                                                   
+  10  10  10                                                                   
+  10  10  10                                                                   
+/                                                                              
+/ number of medium-mesh along y for zlev=  1                                   
+/                                                                              
+  jymed=2   2   2                                                              
+   5   5   5                                                                   
+   5   5   5                                                                   
+/                                                                              
+/ number of medium-mesh along y for zlev=  2                                   
+/                                                                              
+   2   2   2                                                                   
+   5   5   5                                                                   
+   5   5   5                                                                   
+/                                                                              
+/   z coarse-mesh boundaries                                                   
+/                                                                              
+  zmesh=.00   15.00   25.00                                                    
+/                                                                              
+/   number of fine-mesh along z, per coarse-mesh for z-level=  1               
+/                                                                              
+  kzfine=15 15 15                                                              
+        15 15 15                                                               
+        15 15 15                                                               
+/                                                                              
+/   number of fine-mesh along z, per coarse-mesh for z-level=  2               
+/                                                                              
+        10 10 10                                                               
+        10 10 10                                                               
+        10 10 10                                                               
+/                                                                              
+/    number of medium-mesh along z, per coarse-mesh for z-level=  1            
+/                                                                              
+  kzmed=7  7  7                                                                
+        7  7  7                                                                
+        7  7  7                                                                
+/                                                                              
+/    number of medium-mesh along z, per coarse-mesh for z-level=  2            
+/                                                                              
+        5  5  5                                                                
+        5  5  5                                                                
+        5  5  5                                                                
+/                                                                              
+/  material distribution for zlev=  1                                          
+/                                                                              
+    nmattp=1                                                                   
+ 15R1     74Q15                                                                
+    nmattp=2                                                                   
+  5R3     74Q5                                                                 
+    nmattp=3                                                                   
+  5R2     74Q5                                                                 
+    nmattp=4                                                                   
+ 15R1    149Q15                                                                
+    nmattp=5                                                                   
+  5R2    149Q5                                                                 
+    nmattp=6                                                                   
+  5R2    149Q5                                                                 
+    nmattp=7                                                                   
+ 15R2    149Q15                                                                
+    nmattp=8                                                                   
+  5R2    149Q5                                                                 
+    nmattp=9                                                                   
+  5R2    148Q5                                                                 
+  5R2                                                                          
+/                                                                              
+/  material distribution for zlev=  2                                          
+/                                                                              
+    nmattp=10                                                                  
+ 15R2     49Q15                                                                
+    nmattp=11                                                                  
+  5R3     49Q5                                                                 
+    nmattp=12                                                                  
+  5R2     49Q5                                                                 
+    nmattp=13                                                                  
+ 15R2     99Q15                                                                
+    nmattp=14                                                                  
+  5R2     99Q5                                                                 
+    nmattp=15                                                                  
+  5R2     99Q5                                                                 
+    nmattp=16                                                                  
+ 15R2     99Q15                                                                
+    nmattp=17                                                                  
+  5R2     99Q5                                                                 
+    nmattp=18                                                                  
+  5R2     98Q5                                                                 
+  5R2                                                                          
+  flxini=18R1.0                                                                
+  mathmg=18R0   T                                                              
+/                                                                              
+/ ------------- BLOCK III (CROSS SECTIONS) -----------                         
+/                                                                              
+  lib=file:smlwr.xs                                                            
+  legord=0  legoxs=0                                                           
+  nxtyp=0                                                                      
+  ihm=5                                                                        
+  iht=3  ihs=4                                                                 
+  ihng=0                                                                       
+  chig=1.0 7R0.0                                                               
+  nxcmnt=1   T                                                                 
+/                                                                              
+/------------- BLOCK IV (CONTROL OPTIONS) --------------                       
+/                                                                              
+  ncoupl=1                                                                     
+  nprtyp=0                                                                     
+  nrdblk=0                                                                     
+  tolin=.000500                                                                
+  tolout=.0000500                                                              
+  dtwmxw=.95  0.02 1.00                                                        
+  maxitr=150 5                                                                 
+/ maxitr=1 1                                                                   
+  methit=1                                                                     
+/                                                                              
+/   Starting or selected differencing scheme, for each coarse-mesh, for z-level
+/                                                                              
+  ndmeth=18R1                                                                  
+/  2  2  2                                                                     
+/         2  2  2                                                              
+/         2  2  2                                                              
+/                                                                              
+/   Starting or selected differencing scheme, for each coarse-mesh, for z-level
+/                                                                              
+/         2  2  2                                                              
+/         2  2  2                                                              
+/         2  2  2                                                              
+  nzonrb=18 0.9, 0                                                             
+  methac=1  T                                                                  
+/                                                                              
+/-------------------BLOCK V (Source)--------------------                       
+/                                                                              
+ rkdef=0.95823 kextrp=1 T                                                      
+/                                                                              
+/------------- BLOCK VI (BOUNDARY CONDITIONS) ---------                        
+/                                                                              
+/ var   type  Group albedos                                                    
+  ibback=1    2R1                                                              
+  ibfrnt=0                                                                     
+  jbeast=1    2R1                                                              
+  jbwest=0                                                                     
+  kbsout=1    2R1                                                              
+  kbnort=0       T                                                             
+/                                                                              
+/------------- BLOCK VII (PRINTING CONDITIONS) ---------                       
+/                                                                              
+/                                                                              
+  nxspr=1 nmatpr=0 ngeopr=1 nsrcpr=0 nsumpr=1                                  
+  meshpr=0                                                                     
+  nfdump=1 nsdump=0 nadump=0  T                                                
+                                                                               
+                                                                               
+  
+-----------------------------------------------------------------------------
+ Criticality Eigenvalue Problem
+ Problem Output/Results:
+-----------------------------------------------------------------------------
+ Run  Started: 09/29/2008 09:55:59
+ Results file: smlwr.1                                                           
+ Header and Title Cards:
+
+smlwr                                                                           
+Small LWR Problem                                                               
+This problem is part of the 3-D Neutron                                         
+Transport Benchmarks by Takeda and Ikeda                                        
+NEACRP-L-330                                                                    
+                                                                                
+Case 2 - Control Rod Inserted                                                   
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+-----------------------------------------------------------------------------
+
+
+        GLOBAL PROCESSOR/PROBLEM INFORMATION
+
+ Decomposition Weight Vector (decmpv)** 
+      Angular:   -2.00
+        Group:   -2.00
+      Spatial:   -2.00
+ Decomposition Priority Emphasis: Angular
+
+  3 Unique Communicators Built on proc   1.
+
+  (**NEGATIVE Values LOCK-IN the total number of scaled 
+   processors for the respective decomposition; ZERO Values
+   BLOCK decomposition; POSITIVE Values WEIGHT Parallel Scaling)
+
+
+      PARALLEL VIRTUAL 3-D TOPOLOGY:   8 TOTAL Processor(s)
+    Decomposition       Total    Processors   Locally    Total  
+      Variable        Processed   Allocated  Processed Percentage
+ -------------------- ---------- ---------- ---------- ----------
+ Coarse Cells              18          2          9        50.
+ Energy Groups              2          2          1        50.
+ Directions Omega          80          2         40        50.
+
+  (Ang Sweep Octants)       8          2          4        50.
+  (Omegas/Octant)          10          1         10       100.
+
+
+ Automatic Load Balance Strategy: NONE (Sequential Assignment)
+     Red-Black Coloring Strategy: NONE (Local Sequential Assignment)
+
+   Parallel Max/Min Load Ratio in Problem:
+           Spatial Coarse Cells: 1.4000E+00
+                  Energy Groups: 1.1218E+00
+          Angular Sweep Octants: 1.0000E+00
+                  Omegas/Octant: 1.0000E+00
+
+
+        LOCAL PROCESSOR INFORMATION
+
+      Coarse Cells on Processor  1:
+      1      2      3      4      5      6      7      8      9
+
+     Memory Tuning on Processor  1:  Avg     868 +/-   603
+      1     -1     -2      2     -3     -4      3     -5     -6
+   
+
+   Proc   1 Demanded     24.9 Mb Using:
+     Average Based Small Mesh Model
+       6 Small Coarse Cells (<0) Size :     868
+       3 Large Coarse Cells (>0) Size :    2250
+     Relative Angular Array Savings   :    40.9 %
+
+     Energy Groups on Processor   1:
+      1
+
+     Angular Sweeps on Processor  1:
+      1      2      3      4
+
+     Sweep Omegas on Processor    1:
+      1      2      3      4      5      6      7      8      9     10
+
+              (See Logfile for Decomposition Mapping)
+  
+
+ Geometry: 3d
+
+ S8 3D Level Symmetric Angular Quadrature
+ Number of Omegas per Octant  :  10
+ ABS Minimum Direction Cosine :  .218217894434929
+
+        (+,+,+) Direction Cosines(in sampling order):
+
+ Omega     w (weight)      mu (x-axis)     eta (y-axis)      xi (z-axis)  
+ ----- ---------------- ---------------- ---------------- ---------------- 
+    1  0.015123456790123 .218217894434929 .218217894434929 .951189756393433
+    2  0.011342592592593 .577350258827210 .218217894434929 .786795794963837
+    3  0.011342592592593 .218217894434929 .577350258827210 .786795794963837
+    4  0.011342592592593 .786795794963837 .218217894434929 .577350258827210
+    5  0.011574074074074 .577350258827210 .577350258827210 .577350258827210
+    6  0.011342592592593 .218217894434929 .786795794963837 .577350258827210
+    7  0.015123456790123 .951189756393433 .218217894434929 .218217894434929
+    8  0.011342592592593 .786795794963837 .577350258827210 .218217894434929
+    9  0.011342592592593 .577350258827210 .786795794963837 .218217894434929
+   10  0.015123456790123 .218217894434929 .951189756393433 .218217894434929
+  
+              Omega Sampling Order: Sn Angles
+  
+             S8               xi
+         (+ + +) Octant       1
+         m-Level Diagram    2   3
+           (Sweep 2)      4   5   6
+                        7   8   9  10
+                      mu            eta
+  
+  
+
+        GENERAL OCTANT Sweeping Assignments
+
+   Sweep   mu   eta   xi   Start  Sweep   mu   eta   xi   Start
+   ----- ----- ----- ----- -----  ----- ----- ----- ----- -----
+     1     -     -     -    FWN     2     +     +     +    BES 
+     3     -     -     +    FWS     4     +     +     -    BEN 
+     5     +     -     -    BWN     6     -     +     +    FES 
+     7     +     -     +    BWS     8     -     +     -    FEN 
+
+ B=Back(-x) F=Front(+x) E=East(-y) W=West(+y) S=South(-z) N=North(+z)
+
+
+  
+          2 GROUP/CROSS SECTION Information
+
+ Cross Sections: P0 ORDER USED,  P0 read in
+
+      Length of xsec table each Pn : (ihm)   5
+      Total Cross Section  position: (iht)   3
+      In-group Scatter     position: (ihs)   4
+      Last neutron (n,g)   position: (ihng)  0
+  
+ Cross sections read from file: smlwr.xs                                                        
+ Cross Section   Type: (nxtyp) 0
+               Format: STANDARD with (2l+1) multiplied after READ
+         Print Switch: (nxspr) 1
+
+
+ Material   1 Cross Sections: P0 order used,  P0 read in
+
+           Material   1 Principal Group Xsecs/Group Chi 
+
+ Grp     siga_g      nusigf_g      sigt_g          chi_g
+ --- ------------ ------------ ------------    ------------
+
+   1  8.52709E-03  9.09319E-03  2.23775E-01     1.00000E+00
+   2  1.58196E-01  2.90183E-01  1.03864E+00     0.00000E+00
+
+           Material   1 Scattering Moments
+
+ Grp Pn  sig_g->g,   sig_(g-1)->g...    
+ --- -- ---------------------------------------------------------------------
+
+   1  0  1.92423E-01
+   2  0  8.80439E-01  2.28253E-02
+  
+ ***WARNING: Material   1
+   GROUP   1 Absorption+Scatter XSecs DO NOT Sum to the Total, diff>0.01
+ ***WARNING: Material   1
+   GROUP   2 Absorption+Scatter XSecs DO NOT Sum to the Total, diff>0.01
+
+
+ Material   2 Cross Sections: P0 order used,  P0 read in
+
+           Material   2 Principal Group Xsecs/Group Chi 
+
+ Grp     siga_g      nusigf_g      sigt_g          chi_g
+ --- ------------ ------------ ------------    ------------
+
+   1  4.16392E-04  0.00000E+00  2.50367E-01     0.00000E+00
+   2  2.02999E-02  0.00000E+00  1.64482E+00     0.00000E+00
+
+           Material   2 Scattering Moments
+
+ Grp Pn  sig_g->g,   sig_(g-1)->g...    
+ --- -- ---------------------------------------------------------------------
+
+   1  0  1.93446E-01
+   2  0  1.62452E+00  5.65042E-02
+  
+
+
+ Material   3 Cross Sections: P0 order used,  P0 read in
+
+           Material   3 Principal Group Xsecs/Group Chi 
+
+ Grp     siga_g      nusigf_g      sigt_g          chi_g
+ --- ------------ ------------ ------------    ------------
+
+   1  1.74439E-02  0.00000E+00  8.52325E-02     0.00000E+00
+   2  1.82224E-01  0.00000E+00  2.17460E-01     0.00000E+00
+
+           Material   3 Scattering Moments
+
+ Grp Pn  sig_g->g,   sig_(g-1)->g...    
+ --- -- ---------------------------------------------------------------------
+
+   1  0  6.77241E-02
+   2  0  3.52358E-02  6.45461E-05
+  
+
+
+ Material   4 Cross Sections: P0 order used,  P0 read in
+
+           Material   4 Principal Group Xsecs/Group Chi 
+
+ Grp     siga_g      nusigf_g      sigt_g          chi_g
+ --- ------------ ------------ ------------    ------------
+
+   1  4.65132E-05  0.00000E+00  1.28407E-02     0.00000E+00
+   2  1.32890E-03  0.00000E+00  1.20676E-02     0.00000E+00
+
+           Material   4 Scattering Moments
+
+ Grp Pn  sig_g->g,   sig_(g-1)->g...    
+ --- -- ---------------------------------------------------------------------
+
+   1  0  1.27700E-02
+   2  0  1.07387E-02  2.40997E-05
+  
+ Binary Source Mesh Dump Switch: (nsdump) 0
+
+
+        BOUNDARY CONDITION INFORMATION
+
+
+ BACK  (-1) Boundary Condition at x=   0.0000:
+       REFLECTIVE (albedo)           
+  (Local Grp)   Group    Back  Albedo
+  ----------- ---------- ------------
+      1           1      1.0000E+00
+
+ FRONT (-2) Boundary Condition at x=  25.0000:
+       VACUUM (zero entering current)
+
+ EAST  (-3) Boundary Condition at y=   0.0000:
+        REFLECTIVE (albedo)          
+  (Local Grp)   Group    East  Albedo
+  ----------- ---------- ------------
+      1           1      1.0000E+00
+
+ WEST  (-4) Boundary Condition at y=  25.0000:
+       VACUUM (zero entering current)
+
+ SOUTH (-5) Boundary Condition at z=   0.0000:
+        REFLECTIVE (albedo)          
+  (Local Grp)   Group    South Albedo
+  ----------- ---------- ------------
+      1           1      1.0000E+00
+
+ NORTH (-6) Boundary Condition at z=  25.0000:
+       VACUUM (zero entering current)
+
+
+         PENTRAN Sn DIFFERENCING SCHEMES
+
+ Diff              Method               Avg Metric    Upgrade      Method
+  No        Acronym-Description         Description   Criteria     Lock-in
+ ---- --------------------------------  ------------  ------------ -------
+   0  DD  = Linear Diamond/No Fixup     Not Used      None            0
+   1  DZ  = Linear Diamond/Zero Fixup   Fixups/Sweep  Fixup          -1
+   2  DTW = Directional ThetaWeighted*  MaxWgt/Sweep  W=0.9500       -2
+   3  EDI = Exp-Direct Iterative        Iters/Sweep   sigdh=0.0200   -3
+   4  EDW = Expon-Direct Weighted       DTWuse/Sweep  sigdh=0.0200   -4
+   5  EDH = Exp-Direct. Omega Hybrid    DTWuse/Sweep  None           -5
+          *min (Src/CollDens)ratio = qfratio = dtwmxw(3)=1.0000
+
+         COARSE CELL/DIFFERENCING MAPPING TABLE**
+
+ Crs   Global   Difference   Dom In  Out Rgt Lft Bot Top  X   Y   Z   Mesh
+ Cell  i  j  k Method/Metric Mtl Bdy Bdy Bdy Bdy Bdy Bdy Fin Fin Fin  Cells
+ ---- -- -- -- ------------- --- --- --- --- --- --- --- --- --- --- -------
+    1  1  1  1  2DTW 5.5E-01   1  -1   2  -3   4  -5  10  15   5  15   1125
+    2  2  1  1  3EDI 2.0E+00   3   1   3  -3   5  -5  11   5   5  15    375
+    3  3  1  1  3EDI 2.2E+00   2   2  -2  -3   6  -5  12   5   5  15    375
+    4  1  2  1  2DTW 9.3E-01   1  -1   5   1   7  -5  13  15  10  15   2250
+    5  2  2  1  3EDI 2.0E+00   2   4   6   2   8  -5  14   5  10  15    750
+    6  3  2  1  3EDI 2.1E+00   2   5  -2   3   9  -5  15   5  10  15    750
+    7  1  3  1  3EDI 2.3E+00   2  -1   8   4  -4  -5  16  15  10  15   2250
+    8  2  3  1  2DTW 5.9E-01   2   7   9   5  -4  -5  17   5  10  15    750
+    9  3  3  1  2DTW 5.9E-01   2   8  -2   6  -4  -5  18   5  10  15    750
+   10  1  1  2  3EDI 2.1E+00   2  -1  11  -3  13   1  -6  15   5  10    750
+   11  2  1  2  2DTW 7.3E-01   3  10  12  -3  14   2  -6   5   5  10    250
+   12  3  1  2  2DTW 5.8E-01   2  11  -2  -3  15   3  -6   5   5  10    250
+   13  1  2  2  2DTW 7.1E-01   2  -1  14  10  16   4  -6  15  10  10   1500
+   14  2  2  2  2DTW 5.8E-01   2  13  15  11  17   5  -6   5  10  10    500
+   15  3  2  2  2DTW 5.9E-01   2  14  -2  12  18   6  -6   5  10  10    500
+   16  1  3  2  2DTW 7.0E-01   2  -1  17  13  -4   7  -6  15  10  10   1500
+   17  2  3  2  2DTW 5.8E-01   2  16  18  14  -4   8  -6   5  10  10    500
+   18  3  3  2  2DTW 5.8E-01   2  17  -2  15  -4   9  -6   5  10  10    500
+                                                  XYZ mesh total      15625
+
+     **Negative Cell Numbers  Indicate a BOUNDARY CONDITION 
+
+
+        COARSE MESH INFORMATION
+
+        18 Total COARSE Meshes
+ Number of X Coarse Meshes:    3
+   1  Bounded Between x=   0.0000 and x=  15.0000 cm
+   2  Bounded Between x=  15.0000 and x=  20.0000 cm
+   3  Bounded Between x=  20.0000 and x=  25.0000 cm
+  
+           Y Coarse Meshes:    3
+   1  Bounded Between y=   0.0000 and y=   5.0000 cm
+   2  Bounded Between y=   5.0000 and y=  15.0000 cm
+   3  Bounded Between y=  15.0000 and y=  25.0000 cm
+  
+           Z Coarse Meshes:    2
+   1  Bounded Between z=   0.0000 and z=  15.0000 cm
+   2  Bounded Between z=  15.0000 and z=  25.0000 cm
+  
+
+  Material Print Switch: (nmatpr) 0
+
+
+  
+        LOCAL MATERIAL INVENTORY/VOLUME TABLE
+        (Local Volume :  9.3750E+03 cm3 in    9375 meshes)
+
+  Material   Local  Number     Local (cm3)  Percent
+   Number      of  Meshes        Volume     of Local
+  --------  -----------------  -----------  --------
+      0          0 /    9375   0.0000E+00      0.0
+      1       3375 /    9375   3.3750E+03     36.0
+      2       5625 /    9375   5.6250E+03     60.0
+      3        375 /    9375   3.7500E+02      4.0
+      4          0 /    9375   0.0000E+00      0.0
+  
+
+        CONVERGENCE CRITERIA
+
+ Inner  Fine  Mesh Min Tolerance:  5.0000E-04
+ Outer  Fine  Mesh Set Tolerance:  5.0000E-05
+ Allowed Max Inner Iter/Group; Outer:  150
+ Allowed Max Wall-Time:      0.0 min
+
+ Source Iteration Method 1: Multigroup Sequential Group Convergence
+ Rebalance Accel Method 1: COMPACT System Flux Rebalance
+   Rebalance applied in   75 of  291 LU solns (  26.% ;  skipped    0 )
+      1 Rebalance Zone(s) used with   18 Coarse Cells (max) per zone
+   Damping Factor 0.9000 with Rebalance Skipped after each    0 Iterations
+ Taylor Projection Coupling Order 1: (O(h^2) spatial truncation)
+
+ Inner Iterations:
+ Group   1 CONVERGED in     2 iterations
+            Total Inner   378
+
+ keff Iteration Over-ride:    5+ 1 MAX Inner Iterations/group
+
+ keff Outer CONVERGED in   59 iterations
+            Total Outer    59
+
+
+        CRITICALITY INFORMATION 
+
+ System keff Single Mesh : 0.95754  tol= 5.0000E-05
+
+ System keff  Avg  Last4 : 0.95754  2sa= 0.000001
+
+
+        EXECUTION AND TIMING
+
+ Run     Start: 09/29/2008 09:55:59
+ Problem Start: 09/29/2008 09:55:59
+ Problem  Stop: 09/29/2008 10:00:12
+     Run  Time:     4. min   13.4 sec  (      253.4       sec)
+ Problem  Time:     4. min   13.4 sec  (      253.4       sec)
+ CPU  Estimate:     105.3%  Dedicated  (      266.9 total sec)
+ Cumulative Run:      253.4 sec  Problem:      253.4 sec
+
+        Event %  Using Cumulative RUN Time:
+        (Message Other Applies to Other Events)
+
+ Proc  File  Setup  Source Xport  Fluxes  Conv   Rebal  Multi  Msg    Msg
+  No  Inputs  Prob  Update Sweeps  &Curr in/out  accel  Grid   Sweep  Other
+ ---- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------
+   1     0.0    0.0    3.0   85.8    2.6    0.1    5.6    0.0   31.2    7.5
+   2     0.0    0.0    2.0   86.8    1.6    0.7    5.6    0.0   50.3    9.4
+   3     0.0    0.0    4.6   84.2    2.7    0.1    5.5    0.0   29.9    7.4
+   4     0.0    0.0    3.0   85.7    1.7    0.7    5.5    0.0   50.1    9.4
+   5     0.0    0.0    3.0   85.8    2.7    0.1    5.6    0.0   31.2    7.4
+   6     0.0    0.0    2.0   86.8    1.7    0.7    5.6    0.0   50.6    9.3
+   7     0.0    0.0    4.5   84.3    2.6    0.1    5.5    0.0   29.8    7.5
+   8     0.0    0.0    3.0   85.8    1.6    0.7    5.5    0.0   49.7    9.4
+
+ Avg%    0.0    0.0    3.1   85.7    2.1    0.4    5.5    0.0   40.3    8.4
+ Sec (   0.0    0.1    7.9  217.1    5.4    1.0   14.0    0.0  102.2   21.4)
+  
+
+        Event  % Using Cumulative PROBLEM Time:
+        (Message Other Applies to Other Events)
+
+ Proc  File  Setup  Source Xport  Fluxes  Conv   Rebal  Multi  Msg    Msg
+  No  Inputs  Prob  Update Sweeps  &Curr in/out  accel  Grid   Sweep  Other
+ ---- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------
+   1   ----     0.0    3.0   85.8    2.6    0.1    5.6    0.0   31.2    7.5
+   2   ----     0.0    2.0   86.8    1.6    0.7    5.6    0.0   50.3    9.4
+   3   ----     0.0    4.6   84.2    2.7    0.1    5.5    0.0   29.9    7.4
+   4   ----     0.0    3.0   85.7    1.7    0.7    5.5    0.0   50.1    9.4
+   5   ----     0.0    3.0   85.8    2.7    0.1    5.6    0.0   31.2    7.4
+   6   ----     0.0    2.0   86.8    1.7    0.7    5.6    0.0   50.6    9.3
+   7   ----     0.0    4.5   84.3    2.6    0.1    5.5    0.0   29.8    7.5
+   8   ----     0.0    3.0   85.8    1.6    0.7    5.5    0.0   49.7    9.4
+
+ Avg%  ----     0.0    3.1   85.7    2.1    0.4    5.5    0.0   40.3    8.4
+ Sec ( ----     0.1    7.9  217.1    5.4    1.0   14.0    0.0  102.2   21.4)
+  
+
+
+        INTEGRAL BOUNDARY LEAKAGE 
+
+ Grp  BackNet|-x  FrontNet|+x EastNet|-y  WestNet|+y  SouthNet|-z NorthNet|+z
+ ---- ----------- ----------- ----------- ----------- ----------- ----------- 
+   1   0.0000E+00  1.1154E+00  4.6566E-08  9.8338E-01 -9.8953E-08  1.0346E+00
+   2   0.0000E+00  5.4245E-01  1.2224E-07  6.2980E-01  4.3714E-06  5.9309E-01
+
+ Tot   0.0000E+00  1.6579E+00  1.6880E-07  1.6132E+00  4.2724E-06  1.6277E+00
+
+
+        INTEGRAL SYSTEM BALANCE 
+
+ Grp  -(Leakage)  -Collisions +ScatterSrc +FissionSrc +Vol&BdySrc  = Balance
+ ---- ----------- ----------- ----------- ----------- ----------- ----------- 
+   1  -3.1334E+00 -1.4436E+02  1.2005E+02  2.7447E+01  0.0000E+00  3.0518E-05
+   2  -1.7653E+00 -5.2686E+02  5.2862E+02  0.0000E+00  0.0000E+00 -1.2207E-04
+
+ Tot  -4.8987E+00 -6.7122E+02  6.4867E+02  2.7447E+01  0.0000E+00 -9.1553E-05
+
+
+
+        FISSION NORMALIZED TOTAL NET LEAKAGE, BALANCE 
+
+ Val  Back |-Leak Front|-Coll East|+Scat  West|+Fiss  South|+Srcs  North|=Bal
+ ---- ----------- ----------- ----------- ----------- ----------- ----------- 
+ Lkg:  0.0000E+00  6.0403E-02  6.1501E-09  5.8775E-02  1.5566E-07  5.9302E-02
+ Bal: -1.7848E-01 -2.4455E+01  2.3634E+01  1.0000E+00  0.0000E+00 -3.3356E-06
+
+
+
+ Coarse Mesh Summary Switch: (nsumpr) 1
+
+
+        COARSE MESH SUMMARY DATA  Group   1
+
+  Crs:DomMatl     x-cm        y-cm        z-cm     Volume cm3    MaxHOpt 
+  Net Current   Phi(Cell)  Q0:Scatter  Q0:Fission  Q0:VolSrc    Error Norm
+  -(Leakage)  -Collisions +ScatterSrc +FissionSrc +Vol&BdySrc =  Balance 
+  ----------- ----------- ----------- ----------- -----------  -----------
+      1    1       7.5000      2.5000      7.5000  1.1250E+03   1.0255E+00
+   4.7968E-02  1.4646E-01  2.8183E-02  8.2578E-03  0.0000E+00   1.7978E-06
+  -4.1241E+00 -3.6871E+01  3.1705E+01  9.2900E+00  0.0000E+00  -4.7684E-07
+      2    3      17.5000      2.5000      7.5000  3.7500E+02   3.9058E-01
+   1.2103E-03  4.5399E-02  3.0746E-03  0.0000E+00  0.0000E+00   1.1639E-05
+   2.9808E-01 -1.4511E+00  1.1530E+00  0.0000E+00  0.0000E+00  -1.8477E-06
+      3    2      22.5000      2.5000      7.5000  3.7500E+02   1.1473E+00
+  -3.5352E-03  1.7669E-02  3.4180E-03  0.0000E+00  0.0000E+00   4.2955E-05
+   3.7715E-01 -1.6589E+00  1.2817E+00  0.0000E+00  0.0000E+00   4.7684E-07
+      4    1       7.5000     10.0000      7.5000  2.2500E+03   1.0255E+00
+   5.5778E-02  1.1956E-01  2.3006E-02  8.0697E-03  0.0000E+00   9.7243E-06
+  -9.7230E+00 -6.0196E+01  5.1763E+01  1.8157E+01  0.0000E+00   4.4823E-05
+      5    2      17.5000     10.0000      7.5000  7.5000E+02   1.1473E+00
+  -5.4222E-03  3.3455E-02  6.4716E-03  0.0000E+00  0.0000E+00   1.1304E-05
+   1.4282E+00 -6.2819E+00  4.8537E+00  0.0000E+00  0.0000E+00  -3.5763E-06
+      6    2      22.5000     10.0000      7.5000  7.5000E+02   1.1473E+00
+  -2.4145E-03  1.0533E-02  2.0376E-03  0.0000E+00  0.0000E+00   2.4584E-05
+   4.4967E-01 -1.9779E+00  1.5282E+00  0.0000E+00  0.0000E+00   5.6624E-07
+      7    2       7.5000     20.0000      7.5000  2.2500E+03   1.1473E+00
+  -1.2376E-02  2.5429E-02  4.9191E-03  0.0000E+00  0.0000E+00   4.1524E-04
+   3.2567E+00 -1.4325E+01  1.1068E+01  0.0000E+00  0.0000E+00  -1.2398E-05
+      8    2      17.5000     20.0000      7.5000  7.5000E+02   1.1473E+00
+  -3.7221E-03  9.5440E-03  1.8462E-03  0.0000E+00  0.0000E+00   1.2590E-04
+   4.0744E-01 -1.7921E+00  1.3847E+00  0.0000E+00  0.0000E+00  -1.2517E-06
+      9    2      22.5000     20.0000      7.5000  7.5000E+02   1.1473E+00
+  -1.0449E-03  3.5180E-03  6.8053E-04  0.0000E+00  0.0000E+00   2.8431E-05
+   1.5018E-01 -6.6058E-01  5.1040E-01  0.0000E+00  0.0000E+00  -1.6391E-07
+  
+
+ Binary Flux  Moment Dump Switch: (nfdump) 1
+
+
+ Binary Current Vector  Dump Switch: (njdump) 0
+
+ Binary Angular Flux Dump Switch: (nadump) 0
+
+
+  Problem Output Complete:    09/29/2008 10:00:12   on proc   1
+  Out I/O:      0.0 sec on proc   1
+  Cumulative Problem Time      253.4 sec on proc   1
+
+

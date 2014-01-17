@@ -1,0 +1,419 @@
+  
+ PENTRAN 3-D Parallel Discrete Ordinates Code Version 9.42b 
+ LOGFILE FOR PROBLEM : 
+ takeda.pen                                                      
+ FIDO-COMM SCRATCH FILE 7283: taked1.dat  
+ PROCESSOR    1 Processed FIDO Inputs:
+ ---------------------------------------------------
+   
+ COMPILED PARAMETER SETTINGS/PROBLEM LIMITS: 
+   
+ Est Proc Memory Required (Mb/Proc):    32.8
+
+ Max Proc Memory Limit, Mb (maxmem):    3072
+ Max No. Procs Allowed For (maxpcs):       1
+ Max Global Coarse Meshes  (maxgcm):      18
+
+ Max Restart Total Groups  (maxxsg):       2
+ Max Local  Coarse Meshes  (maxcmc):      18
+ Max Coarse Meshes/1 axis  (maxcrs):       3
+ Max Medium Meshes/Coarse  (maxmmc):    2250
+ Max Medium Meshes/1 axis  (maxmed):      15
+ Max Fine   Meshes/Coarse  (maxfmc):    2250
+ Max Fine   Meshes/1 axis  (maxfin):      15
+
+ Max Global Energy Groups  (maxgrp):       2
+ Max Local  Energy Groups  (maxglc):       1
+ Max Local  Sweep Octants  (maxswp):       8
+ Max Quad.  Angles/Octant  (maxqdm):      10
+ Max Material (xsec)Types  (maxmat):       4
+ Max Leg Scat dimensioned  (maxleg):       0
+
+ Max Global Fixed Sources  (maxsrc):       0
+ Max Local  Fixed Sources  (maxslc):       0
+ Max Contiguous CMR Cells  (maxcmr):      18
+ Max Lines  in Input Deck  (maxlin):     272
+ Max Inputs vector w/FIDO  (maxarr):    2500
+ Max FIDO  Chars/Variable  (nctlim):     765
+   
+ ---------------------------------------------------
+   
+  PENTRAN VARIABLE NAMES BY BLOCK: 
+
+   BLOCK 1 - 12 Possible:
+ngeom ngroup isn nmatl ixcrs jycrs kzcrs decmpv lodbal timcut tolmgd modadj     
+
+   BLOCK 2 - 12 Possible:
+xmesh ixmed ixfine ymesh jymed jyfine zmesh kzmed kzfine nmattp flxini mathmg   
+
+   BLOCK 3 - 10 Possible:
+lib legord nxtyp ihm iht ihs ihng chig nxcmnt legoxs                            
+
+   BLOCK 4 - 12 Possible:
+nprtyp nrdblk tolin tolout maxitr methit
+                                     methac ncoupl ndmeth nzonrb dtwmxw nquit
+
+   BLOCK 5 - 11 Possible:
+nsdef nscmsh ssnrm sref serg smag rkdef spacpf omegap scalsf kextrp             
+
+   BLOCK 6 -  6 Possible:
+ibback ibfrnt jbeast jbwest kbsout kbnort                                       
+
+   BLOCK 7 - 10 Possible:
+nxspr ngeopr nsumpr meshpr nfdump nsrcpr nsdump nmatpr nadump njdump            
+   
+ ---------------------------------------------------
+   
+
+>>> Scanning Data  on Processor    1 of    1 <<<
+
+
+#### Scanning Block  1 Data on Processor    1 of    1 ####
+
+   ngeom= 3d
+
+  modadj=  0 (forward/adjoint switch)
+
+   ngroup:             2  values read
+  ngroup(1)=  2 (Total energy groups--current ru
+  ngroup(2)=  1 (Group processor dimension window)
+  ngroup(3)=  0 (Converged groups from Restart)
+
+            1  values read:
+  isn(1)=  8 (Sn Level-Symmetric quad order)
+  isn(2)=  0 (No. dirs for ordinate splitting)
+  isn(3)= iddir (Direction indexes for split)  
+
+  isn(4)= nseg (Segments for Direct. Indexes) 
+
+    
+  maxqdm requires dimension   10
+   nmatl=  4 (Materials in problem)
+
+   ixcrs=  3 (No. Coarse Meshes in x)
+
+   dxcoff:             0  values read: (Coarse Mesh x-offset)
+
+   
+   jycrs=  3 (No. Coarse Meshes in y)
+
+   dycoff:             0  values read: (Coarse Mesh y-offset)
+
+   
+   kzcrs=  2 (No. Coarse Meshes in z)
+
+   dzcoff:             0  values read: (Coarse Mesh z-offset)
+
+   
+  lodbal=  0 (auto-parallel load balance switch) 
+
+  timcut=     0.0 (Inactive wall mins cutoff)
+
+  tolmgd=-2.0000E-01 (<0=Inactive Multi-Grid, Fine  Grid Only)
+
+  decmpv=Decomp Vector Priorities: Omega,   Group,   Cell
+                                     0.00     0.00     0.00
+
+
+
+#### Scanning Block  2 Data on Processor    1 of    1 ####
+
+    xmesh:             4  values read: (x Coarse bounds) 
+  0.0000E+00  1.5000E+01  2.0000E+01  2.5000E+01
+   
+   ixfine:            18  values read: (x fine meshes) 
+    15     5     5    15     5     5    15     5     5    15
+     5     5    15     5     5    15     5     5
+   
+    ixmed:            18  values read: (x medium meshes) 
+     8     3     3     8     3     3     8     3     3     8
+     3     3     8     3     3     8     3     3
+   
+    ymesh:             4  values read: (y Coarse bounds) 
+  0.0000E+00  5.0000E+00  1.5000E+01  2.5000E+01
+   
+   jyfine:            18  values read: (y fine meshes) 
+     5     5     5    10    10    10    10    10    10     5
+     5     5    10    10    10    10    10    10
+   
+    jymed:            18  values read: (y medium meshes) 
+     3     3     3     5     5     5     5     5     5     3
+     3     3     5     5     5     5     5     5
+   
+    zmesh:             3  values read: (z Coarse bounds) 
+  0.0000E+00  1.5000E+01  2.5000E+01
+   
+   kzfine:            18  values read: (z fine meshes) 
+    15    15    15    15    15    15    15    15    15    10
+    10    10    10    10    10    10    10    10
+   
+    kzmed:            18  values read: (z medium meshes) 
+     8     8     8     7     7     7     7     7     7     6
+     6     6     5     5     5     5     5     5
+   
+   READ nmattp: Coarse             1 ;          1125  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             2 ;           375  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             3 ;           375  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             4 ;          2250  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             5 ;           750  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             6 ;           750  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             7 ;          2250  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             8 ;           750  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse             9 ;           750  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            10 ;           750  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            11 ;           250  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            12 ;           250  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            13 ;          1500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            14 ;           500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            15 ;           500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            16 ;          1500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            17 ;           500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+   READ nmattp: Coarse            18 ;           500  mesh material specs read
+  data to material scratch file: 
+ takeda.M1                                                       
+   
+  ***WARNING Block 2: Initial fluxes flxini weighted 
+  in energy by chig in Block 3
+  
+   flxini:            18  values read: (initial Coarse mesh fluxes) 
+  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00
+  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00
+  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00  1.0000E+00
+  1.0000E+00  1.0000E+00  1.0000E+00
+   
+   mathmg:            18  values read: (Coarse Mesh medium grid matl setting)
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+   
+
+
+#### Scanning Block  3 Data on Processor    1 of    1 ####
+
+     lib=file:takeda.xs                                                 
+         (xsec lib source)
+
+  legord= 0 (Legendre order of calculation)
+
+  legoxs= 0 (Legendre order of xsec library)
+
+   nxtyp=0 (cross section type)
+
+     ihm=  5 (xsec table length)
+
+     iht=  3 (total xsec position)
+
+     ihs=  4 (in-group scatter xsec position)
+
+    ihng=  0 (table marker of last n in n,gamma xsec)
+
+    chig file not detected; if present, minimize spacing in input
+
+    chig read from FIDO data
+
+  chig for material:  1 for each of   2 groups:
+  1.0000E+00  0.0000E+00
+   
+  chig for material:  2 for each of   2 groups:
+  1.0000E+00  0.0000E+00
+   
+  chig for material:  3 for each of   2 groups:
+  1.0000E+00  0.0000E+00
+   
+  chig for material:  4 for each of   2 groups:
+  1.0000E+00  0.0000E+00
+   
+  nxcmnt=  1 (No. xsec comment cards before matl xsec)
+
+  ***WARNING Block 3:  1 Comment lines/xsec indicated for xsec file:
+ takeda.xs                                                       
+  
+
+ Reading Block 3  Cross Section Data on Processor    1 of    1
+  nxtyp 0: STANDARD form WITHOUT Legendre Constants                         
+  Library from File: takeda.xs                                                       
+
+ READ xsecs: Material   1
+/#1 Core region                                                                
+
+ READ xsecs: Material   2
+/#2 Reflector region                                                           
+
+ READ xsecs: Material   3
+/#3 Control Rod region                                                         
+
+ READ xsecs: Material   4
+/#4 Void                                                                       
+
+
+#### Scanning Block  4 Data on Processor    1 of    1 ####
+
+    ncoupl: 1 value read: (Taylor projection order, all Coarse cells) 
+            1
+   
+  nprtyp=  0 (problem type)
+
+  ***PROCIN ERROR in Block 4: k-calc + grpwin not supported 
+    --FATAL ERROR 
+  
+  nrdblk=  0 (automatic Red-Black subdomain switch)
+    tolin: 1 value read: (all Coarse cell tolerances) 
+   1.0000000E-03
+   
+   tolout:             1  values read
+  tolout(1)= 1.000E-05 (outer iteration tolerance)
+  tolout(2)= 1.000E+00 (tolout(1) multiplier for med grid)
+
+  dtwmxw(1)=0.9500 (max DTW adaptive weight  [0.5,1.0] = dtwmxw )
+  dtwmxw(2)=0.0200 (min EDW/EDI-optical thick. [0.00,1.00] = edwmno )
+
+  dtwmxw(3)=1.0000 (min  (Src/CollDens)ratio [>0.000] = qfratio )
+
+   maxitr:             2  values read
+  maxitr(1)=  50 (max inner/outer iterations)
+  maxitr(2)=  10 (keff inner iteration limit)
+
+  methit=  1 (source iteration method)
+
+   ndmeth:            18  values read: (Coarse Mesh Sn diff methods)
+     2     2     2     2     2     2     2     2     2     2
+     2     2     2     2     2     2     2     2
+   
+   nzonrb:             3  values read:
+  (Cells/Zone: Dampf: Skip:  )
+  nzonrb=   18 0.9990     0
+   
+   methac:             1  values read:
+  methac(1)=  1 (rebalance accel method)
+  methac(2)=  0 (csda init Off=0/Point=1/Cosine=2)
+  methac(3)=   0.0000  (csda xcenter (0=auto))
+  methac(4)=   0.0000  (csda ycenter (0=auto))
+  methac(5)=   0.0000  (csda zcenter (0=auto))
+  methac(6)=  2 (inner iterate use of csda)
+  methac(7)=  1 (outer iterate use of csda)
+
+  
+  ***WARNING Block 4: nquit; no maximum #iters to stop a non-converging group
+    --Using Default Value nquit=4
+  
+
+
+#### Scanning Block  5 Data on Processor    1 of    1 ####
+
+   rkdef= 1.000E+00 (initial guess for keff)
+   takeda.K1                                                       
+  (keff Log file)
+  kextrp  setting not found... 
+  kextrp=1 Extrapolation for keff now active
+   
+
+
+#### Scanning Block  6 Data on Processor    1 of    1 ####
+
+  ibback=  1 (bdy cond at surf normal to -x)
+
+  ibback albedos for 1..G=            2
+  1.0000E+00  1.0000E+00
+   
+  ibfrnt=  0 (bdy cond at surf normal to +x)
+
+  jbeast=  1 (bdy cond at surf normal to -y)
+
+  jbeast albedos for 1..G=            2
+  1.0000E+00  1.0000E+00
+   
+  jbwest=  0 (bdy cond at surf normal to +y)
+
+  kbsout=  1 (bdy cond at surf normal to -z)
+
+  kbsout albedos for 1..G=            2
+  1.0000E+00  1.0000E+00
+   
+  kbnort=  0 (bdy cond at surf normal to +z)
+
+
+
+#### Scanning Block  7 Data on Processor    1 of    1 ####
+
+   nxspr=  0 (xsec print in outputs)
+
+  nmatpr=  1 (Coarse Mesh material map output switch)
+
+  ngeopr=  1 (geometry print setting)
+
+  nsrcpr=  0 (source dist data output switch)
+
+  nsumpr=  1 (Coarse Mesh summary print switch)
+
+   meshpr:            18  values read: (Coarse Mesh print settings) 
+    -1    -2    -3    -4    -5    -6    -7    -8    -9   -10
+   -11   -12   -13   -14   -15   -16   -17   -18
+   
+  nfdump=  1 (binary flux moment dump setting
+
+  nsdump=  0 (binary scalar source dump switch)
+
+  njdump=  0 (binary current vector dump setting)
+
+   nadump:             1  values read: (binary angular flux dump setting) 
+     0
+   
+
+  
+            3  WARNING(S) DETECTED 
+            1  FATAL ERROR(S) DETECTED 
+  
+  
+  *** Parameters Automatically Repaired...
+  READY to Re-SUBMIT...
+  
