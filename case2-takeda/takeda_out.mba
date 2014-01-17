@@ -1,5 +1,5 @@
 Material Balance Summary for Model: takeda
-
+ 
 Section 1 : Coarse Mesh infomation
  CM #   x_size   y_size   z_size        fm num      tot_fm          fm size             fm vol  num_mat    # of fm per mat
                                      x     y     z               x       y       z                        mat  1       2       3       4
@@ -21,11 +21,11 @@ Section 1 : Coarse Mesh infomation
    16   15.000   10.000   10.000    15    10    10    1500    1.00    1.00    1.00   1.000E+00    1            0    1500       0       0
    17    5.000   10.000   10.000     5    10    10     500    1.00    1.00    1.00   1.000E+00    1            0     500       0       0
    18    5.000   10.000   10.000     5    10    10     500    1.00    1.00    1.00   1.000E+00    1            0     500       0       0
-
+ 
 Section 2 : Model mat. infomation
-
+ 
 Contents of file: ./takeda.mba
-
+ 
          Takeda Small LWR Benchmark
  
  
@@ -36,13 +36,13 @@ Contents of file: ./takeda.mba
   reflector    2     1.162500E+04      1.00
   Cont_Rod     3     6.250000E+02      1.50
   Void         4     0.000000E+00      0.00
-
+ 
 Model Material Inventory/Volume Table
-
+ 
 Targeted Mean Density:   1.236000E+00 g/cm3 from .mba file
      Targeted Volume :   1.562500E+04 cm3    Mass:    1.931250E+04 g
         Model Volume :   1.562500E+04 cm3    Mass:    1.931250E+04 g
-
+ 
  Material    Mat      Fine        Model (cm3)      % of      Mdl/Trg     Model Mass    Model    
    name      No.     Meshes        volume          Total     V-Ratio     Excess (g)    Mass (g) 
 ----------  ------  --------     -------------    -------    ---------  ------------  ---------- 
@@ -50,9 +50,9 @@ core           1        3375     3.375000E+03     21.600      1.000E+00    0.000
 reflector      2       11625     1.162500E+04     74.400      1.000E+00    0.000E+00    1.163E+04
 Cont_Rod       3         625     6.250000E+02      4.000      1.000E+00    0.000E+00    9.375E+02
 Void           4           0     0.000000E+00      0.000            NaN    0.000E+00    0.000E+00
-
+ 
      TOTAL             15625     1.562500E+04
-
+ 
 Material mass center 
  Material    Mat           mass center coodinates    
    name      No.           x              y             z     
@@ -61,8 +61,8 @@ core            1     7.50000E+00    7.50000E+00    7.50000E+00
 reflector       2     1.36828E+01    1.44892E+01    1.39516E+01
 Cont_Rod        3     1.75000E+01    2.50000E+00    1.25000E+01
 Void            4     0.00000E+00    0.00000E+00    0.00000E+00
-
+ 
 Material Vol in Cm^3
-
+ 
 Total Vol    :    1.562500E+04
 Total Mat Vol:    1.562500E+04
