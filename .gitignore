@@ -2,4 +2,13 @@ v2.66c/
 *.plt
 *.mod
 *.o
+*.zip
+*.1
+*.L*
+*.M*
+*.bak
+*.dat
+*.ref
+prb.pen
+*.out
 penmshxp
