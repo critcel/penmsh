@@ -1,0 +1,45 @@
+/ncx, ncy, maxfinz  (maxfinz < 0, add z-fine per cm below y-fine)
+3,3,-15
+/ x-fine mesh per cm (# seq along cm rows of x)
+15 5 5
+15 5 5 
+15 5 5
+/ y-fine mesh per cm (# seq ... y)
+ 5  5  5  
+10 10 10
+10 10 10
+/ z-fine mesh per cm (# seq ... z)
+15 15 15 
+15 15 15 
+15 15 15
+/ cm bounds along x-axis (in seq ...x)
+0.0 15.0 20.0 25.0
+/cm bounds along y-axis (in seq ...y)
+0.0 5.0 15.0 25.0
+/ cm type, each cm (<0 : look for overlay)
+1 1 1 
+1 1 1
+1 1 1
+/ number of material regions per coarse mesh
+1 1 1 
+1 1 1
+1 1 1
+/ coarse mesh  1 (cm type 1: square with only 1 region!)
+1
+/ coarse mesh  2 (cm type 1: square with only 1 region!)
+3
+/ coarse mesh  3 (cm type 1: square with only 1 region!)
+2
+/ coarse mesh  4 (cm type 1: square with only 1 region!)
+1
+/ coarse mesh  5 (cm type 1: square with only 1 region!)
+2
+/ coarse mesh  6 (cm type 1: square with only 1 region!)
+2
+/ coarse mesh  7 (cm type 1: square with only 1 region!)
+2
+/ coarse mesh  8 (cm type 1: square with only 1 region!)
+2
+/ coarse mesh  9 (cm type 1: square with only 1 region!)
+2
+
