@@ -381,6 +381,10 @@ do i = 1, count
     case ('colormap','-helpcm','helpcm')
       call DisplayColorMap
  
+!support for fm size-based nmesh allocation
+    case ('-maxmesh')
+	  id_arg=41
+
     case default
         
       Flag_arg: select case (id_arg(i-1))
@@ -567,6 +571,18 @@ do i = 1, count
  
    case (40)
        hrt_filename=trim(buf(i))  
+   case (41)
+      call Str2Val(buf(i), rarg, IsSuccess)
+      if(IsSuccess .eq. 0) then 
+         if(rarg .gt. 0) then
+          max_fm_size=rarg
+         else
+           max_fm_size=1.0
+         endif
+      else
+        write(*,"('GetArg: -maxfm is not valid: ',A, ' ignored')")   trim(buf(i))
+      endif
+
    case default
          write(*,*) "Warning: ", trim(buf(i)), ": unknown argument ignored"
          write(*,*) "Use inpred -h to display help"
@@ -743,6 +759,10 @@ write(*,"(A)")  '-w   number                     '
 write(*,"(A)")  '     Max warnings                '
 write(*,"(A)")  '-hrt   phantom input file name    '
 write(*,"(A)")  '    handle binary phantom data files                 '
+write(*,"(A)")  '-maxmesh number '
+write(*,"(A)")  '     automatic number of meshes per coarse mesh, based on a maximum '
+write(*,"(A)")  '     allowable mesh size of (number) this number is then multiplied '
+write(*,"(A)")  '     by the number in the prbZ.inp file to allow for variable mesh size '
 write(*,"(A)")  '-V       '
 write(*,"(A)")  '    show version number                 '
 write(*,"(A)")  
