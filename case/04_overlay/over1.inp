@@ -1,0 +1,124 @@
+/ncx, ncy, maxfinz  (maxfinz < 0, add z-fine per cm below y-fine)
+3,3,1
+/ x-fine mesh per cm (# seq along cm rows of x)
+25 25 25
+50 40 40
+50 50 50
+/ y-fine mesh per cm (# seq ... x)
+25 25 25
+50 40 40
+50 50 50
+/ cm bounds along x-axis (in seq ...x)
+0.0, 5.0, 10.0 15.0
+/cm bounds along y-axis (in seq ...x)
+0.0, 5.0, 10.0 15.0
+/ cm type, each cm (<0 : look for overlay)
+/-21:  cm type 1, but with 3 overlay blocks
+1   2  3
+-1 -1 -1
+-1 -1 -31
+/ number of material regions per coarse mesh
+4,3 4
+4,1 1
+1 1 1
+/ coarse mesh  1 (cm type 1: 4 retangular regions)
+ 0 2  0  2      /left
+ 2 5  2  5      /right
+ 0 0  3  3      /bottom
+ 3 3  5  5      /top
+ 2 4  7  10      /mat number
+/ coarse mesh  2 (cm type 2: 3 circular regions centered at model origin )
+ 0  7   10            /inside radius
+ 7  10  15            /outside radius
+ 0  0   0             /cm bot not used (penmsh)
+ 5  5   5             /cm top not used
+ 7  5   6             /mat numbers for 3 regions  
+/ coarse mesh  3  (cm type 3: circle and line centered or crossed at model origin) 
+ 0  0  13  13             /inside radius
+ 13 13 20  20             /outside radius
+ 0  6  0   6             /bottom line in degree 0=cm bottom) 
+ 6  0  6   0             /top line in degree 0=cm top) 
+ 7  8  9   10           /mat number
+/ coarse mesh  4        cm type 1,4 regs. with overlay
+ 0    2.5  0    2.5     /left
+ 2.5  5    2.5  5       /right
+ 5    5    7.5  7.5      /bottom
+ 7.5  7.5  10   10      /top
+ 1     4    7   10      /mat number
+/ coarse mesh  5
+2
+/ coarse mesh  6
+ 1
+/ coarse mesh  7
+ 12
+/ coarse mesh  8
+ 11
+/ coarse mesh  9
+ 12
+/overlay cm 4 : 4 quarter circles
+4                /num of overlay 
+31 32 33 34      /shape id: quarter circles
+12 12 12 12      /mat number
+3  4  8  9     /ovlay 1  : left right, bot , top
+1  2  8  9
+1  2  6  7
+3  4  6  7
+/overlay cm 5 : triangle
+1             /1 overlay
+3             /id
+7             /mat
+6 6 9 6 8 9   /A(x,y) B(x,y), C(x,y)
+/overlay cm 6 : Sector
+1             /1 overlay
+51             /id
+7             /mat
+11 7.5 12.732 5.5 12.732 9.5   /O(x,y) B(x,y), C(x,y)
+/overlay cm 7: lattice repeated circle
+-2            /1 overlay, negative sign means lattice structure overlay block
+2  2          /shape id =2  Circle
+1  4         /mat
+/circle left, right, bot, top (first overlay)
+0.1 0.9 10.1 10.9
+/rep_i, rep_j, rep_k, pitch_x, pitch_y, pitch_z (lattice number and pitch size)
+5   5  1   1  1  0
+/circle left, right, bot, top (second overlay)
+0.1 0.9 10.1 10.9
+/rep_i, rep_j, rep_k, pitch_x, pitch_y, pitch_z (lattice number and pitch size)
+3  3  1   2  2  0
+/overlay cm 8: lattice rectangular within circle
+3                    /3 overlays, 
+2 -2 -1            / id: 2 circle (regular) id -2: circle (lattice);  id: -1 rectangular (lattice); 
+3 -1  4            /mat numbers. Negative mat number->lattice element mat num card
+/circle left, right, bot, top (first overly)
+6.0 9.0 11.0 14.0
+/circle left, right, bot, top (second overlay)
+5.1 5.9 10.1 10.9
+/lattice card, triggered by overlay type id=-2 (second overlay)
+5  5  1   1  1  0  / num of lattice elements and pitch size, see overlay cm7
+/lattice element mat #, triggered by mat#=-1,FIDO support(second overlay)
+10R1 5R7 10R1
+/rectangular left, right, bot, top (third overlay)
+5.3   5.7   10.3  10.7
+/rep_i, rep_j, rep_k, pitch_x, pitch_y, pitch_z (third overlay) 
+5  5  1   1  1  0                                                        
+/overlay cm 9 : 2 overlay input blocks 
+/first overlay block is a regular block
+1           /num of overlay
+1           /shape id 1
+9           /mat 9
+/left rgt bot top
+11.0 14.0 11.0 14.0
+/second overlay block is a repeated structure
+-1
+2            /id 2: circle  
+1            /mat
+/circle left, right, bot, top
+10.1 10.9 10.1 10.9
+/rep_i, rep_j, rep_k, disp_i,disp_j,disp_k circle
+5 5 1  1 1 0
+/third overlay block is a regular block
+1           /num of overlay
+2           /shape id 1
+3           /mat 9
+/left rgt bot top
+12.1 12.9 12.1 12.9
