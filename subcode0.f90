@@ -37,6 +37,8 @@ integer :: IsPrbDotFlx(3)=0
 integer :: IsNomalizeFlux=0
 !output penmsh .out files 
 integer :: IsDotOut=0
+!output material number hdf5 file
+integer :: IsDotH5=0
 !ooutput avg. flux for each material
 integer :: IsFluxGM=0, IsChiPath=0
 

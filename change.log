@@ -133,3 +133,8 @@ v2.73b
 1. penmshxp -chipath ChiPath_dir
 
 2. grp window diabled for nprtyp=0 (keff calculation and upscattering)
+
+v2.73b_h5  HDF5 branch
+1. supplement03.f90 : added hdf5 subroutine
+2. inpred.f90 : IsDotH5=1 to output mat number in HDF5 format
+                command line option -h5

@@ -15,7 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.73b (June 2013)"
+ver_num="version 2.73b_h5 (Jan 2014 )"
 !*****************************************
 !control varibles in this section
 
@@ -23,6 +23,7 @@ IsProcessFlux=0
 IsProcessCurr=0
 IsDotOut=0 
 IsOffTitan=0
+IsDotH5=0
 !IsOffPentran=0
 
 if( IsProcessFlux .eq. 1) then
@@ -204,6 +205,14 @@ if (IsDotOut .eq. 1) then
   write(READLOG,*) 'generating .out file (penmsh outputfile) ...done'
 endif
 
+!output mat number .h5 file 
+if (IsDotH5 .eq. 1) then
+  write(*,*) 'generating .h5 file (mat number in HDF5 format) ...'
+  call WriteDotH5
+  write(*,*) '.h5 files done'
+  write(READLOG,*) 'generating .h5 file  ...done'
+endif
+
 if(IsPlotZlev .eq. 1) then 
   write(*,*) 'Plotting z levels...(use -offpng option to turn off plotting)'
   call OutputPlot
@@ -315,7 +324,9 @@ do i = 1, count
       IsSkipGeometry=1
     case ('-offpng')
       IsPlotZlev=0
-    
+    case ('-h5')
+      IsDotH5=1
+     
 	case ('-ming')
       flx_min_flag=2
     case ('-maxg')
@@ -819,7 +830,7 @@ use paraset1, only : ver_num
 
 write(*, "(' PENMSHXP ', A)")  ver_num
 write(*, "(' Copyright 2011 Ce Yi at GaTech')" )
-if( index(ver_num, 'b ') .ne. 0)   &
+if( index(ver_num, 'b ') .ne. 0 .or. index(ver_num, 'b_') .ne. 0 )   &
 write(*, "(' DISLIN Graphic Library by Helmut Michels at Max Planck Institute' )") 
 stop '      '
 end subroutine
