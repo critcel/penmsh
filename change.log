@@ -133,3 +133,7 @@ v2.73b
 1. penmshxp -chipath ChiPath_dir
 
 2. grp window diabled for nprtyp=0 (keff calculation and upscattering)
+Feb. 4 2014
+3. fixed a bug on shared CM overlay: subcode1.f90   forgot to delete 
+!zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
+!   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(j)
