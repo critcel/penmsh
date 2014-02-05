@@ -850,8 +850,8 @@ zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(:)= &
    zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(:)
 
 
-zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
-	zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(j)
+!zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
+!	zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(j)
 zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_mat(:)= &
    zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_mat(:)
 
