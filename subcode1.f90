@@ -30,6 +30,7 @@ integer cm_typ, num_reg
 integer :: rep_ijk(3), rep_i, rep_j, rep_k
 integer :: temp_int
 integer :: mycm_type, mycm_x, mycm_y
+real    :: cmtyp
 logical :: ex
 
 penmsh_inp%dir=input_dir
@@ -541,8 +542,10 @@ m=0
 do k=1,zlevel(i)%ncy
 do j=1,zlevel(i)%ncx
 m=m+1
+cmtyp=fidobank(m)/10.0-int(fidobank(m)/10.0)
+cmtyp=10*cmtyp
 zlevel(i)%cm_zlev(j,k)%cm_type=int(fidobank(m))
-if(abs(zlevel(i)%cm_zlev(j,k)%cm_type) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
+if(abs(int(cmtyp)) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
 enddo
 enddo
 
