@@ -138,7 +138,14 @@ v2.73b_h5  HDF5 branch
 1. supplement03.f90 : added hdf5 subroutine
 2. inpred.f90 : IsDotH5=1 to output mat number in HDF5 format
                 command line option -h5
-3. Feb. 4 2014
+v2.73b
+Feb. 4 2014
 3. fixed a bug on shared CM overlay: subcode1.f90   forgot to delete 
 !zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
 !   zlevel(i)%cm_zlev(mycm_x,mycm_y)%overlay_block(block)%overlay_typ(j)
+Feb. 6 2014
+4.  CM all background material reading, refined cm_type check
+cmtyp=fidobank(m)/10.0-int(fidobank(m)/10.0)
+cmtyp=10*cmtyp
+zlevel(i)%cm_zlev(j,k)%cm_type=int(fidobank(m))
+if(abs(int(cmtyp)) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
