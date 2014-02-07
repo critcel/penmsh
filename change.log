@@ -149,3 +149,5 @@ cmtyp=fidobank(m)/10.0-int(fidobank(m)/10.0)
 cmtyp=10*cmtyp
 zlevel(i)%cm_zlev(j,k)%cm_type=int(fidobank(m))
 if(abs(int(cmtyp)) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
+Feb. 7 2014
+5 -maxmesh option to set the maxim size of fine mesh 

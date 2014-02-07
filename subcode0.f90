@@ -107,6 +107,9 @@ integer :: z_start=0, z_end=0, IsZSingle=0
 !for splitting the flux file
 integer :: num_flx_out=1
 
+!set nmesh to give a certain mesh size
+real :: max_fm_size=-1.0
+
 end module
 
 Module paraset2  ! Gemetry and Source
