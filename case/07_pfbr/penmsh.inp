@@ -1,0 +1,23 @@
+/Prototype Fast Breeder Reactor penmsh.inp file
+/Problem name
+pfbr-qcore
+/# coarse z-levels, # materials, mathematica flag
+1,11,0
+/z-level coarse mesh boundaries
+0.0, 1.0 
+/max. number of fine z-mesh per coarse z-level
+10
+/fine-to-med grid ratio along x.., y.., z.. in each coarse z-level
+1
+1
+1
+/source format, # x-src mesh, # y-src mesh, # z-src mesh, ngrp, sn, pn
+2,10,10,10,10,16,3
+/xsec type, xsec #comment cards, xsec Legendre order, ihm=total # of columns
+1, 2, 3, 13
+/Bdy conds: ibback(-x),ibfrnt(+x),jbeast(-y),jbwest(+y),kbsout(-z),kbnort(+z)
+1,0,1,0,1,1
+/source material id (if source format <0)
+1
+/source intensity (if <0, source magnitude)
+1.0
