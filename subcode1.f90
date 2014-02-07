@@ -524,6 +524,17 @@ call check_real(zlevel(i)%y_cm_pos,1+zlevel(i)%ncy)
  write(READLOG,*) zlevel(i)%y_cm_pos
  write(READLOG,*)
 
+! re-size mesh
+if (max_fm_size.gt.0) then
+ do k=1,zlevel(i)%ncy
+  do j=1,zlevel(i)%ncx
+   zlevel(i)%cm_zlev(j,k)%fine(1)=ceiling((zlevel(i)%x_cm_pos(j+1)-zlevel(i)%x_cm_pos(j))/max_fm_size)*zlevel(i)%cm_zlev(j,k)%fine(1)
+   zlevel(i)%cm_zlev(j,k)%fine(2)=ceiling((zlevel(i)%y_cm_pos(k+1)-zlevel(i)%y_cm_pos(k))/max_fm_size)*zlevel(i)%cm_zlev(j,k)%fine(2)
+   zlevel(i)%cm_zlev(j,k)%fine(3)=ceiling((z_lev_pos(i+1)-z_lev_pos(i))/max_fm_size)*zlevel(i)%cm_zlev(j,k)%fine(3)
+   !write(*,'(6I4)') j,k,i ,zlevel(i)%cm_zlev(j,k)%fine(1:3)
+  enddo
+ enddo
+endif
 
 IsAllCmat=1
 cur_var='cm_type '
