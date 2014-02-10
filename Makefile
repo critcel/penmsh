@@ -4,6 +4,12 @@ ifeq ($(TARGET),gfortran)
 	# compile option for pgf90 or ifort
 	copt=-O3 -ffree-form -ffree-line-length-none
 
+else ifeq ($(TARGET),gfortranwin)
+	# for gfortran
+	f90=gfortran
+	# compile option for pgf90 or ifort
+	copt=-O3 -ffree-form -ffree-line-length-none
+
 else ifeq ($(TARGET),pgi)
 	# portland
 	f90=pgf90
@@ -24,14 +30,29 @@ modfile=constants.mod  fido.mod  funs.mod  \
         dislin.mod mplot.mod min4deck.mod paraset5.mod
 modules=subcode0.o mytecio.o dislin.o
 inpred: $(objects) 
+ifeq ($(TARGET),gfortran)
 	$(f90) $(copt)  -o penmshxp \
         $(objects) dislin-9.2-amd64.a -L/usr/X11R6/lib64 -lX11  
+
+else ifeq ($(TARGET),gfortranwin)
+	$(f90) $(copt)  -o penmshxp $(objects) disgf.a -luser32 -lgdi32 -lopengl32
+
+endif
 inpred.o:inpred.f90  $(modules)
 	$(f90) $(copt) -c  inpred.f90
 mytecio.o: mytecio.f90 
 	$(f90) $(copt) -c  mytecio.f90
+
 dislin.o: dislin.f90 
+
+ifeq ($(TARGET),gfortran)
 	$(f90) $(copt) -c  dislin.f90
+
+else ifeq ($(TARGET),gfortranwin)
+	$(f90) $(copt) -c  dislin_gfwin.f90 -o dislin.o
+
+endif
+
 subcode0.o: subcode0.f90
 	$(f90) $(copt) -c subcode0.f90
 subcode1.o: subcode1.f90 $(modules)
