@@ -35,7 +35,7 @@ ifeq ($(TARGET),gfortran)
         $(objects) dislin-9.2-amd64.a -L/usr/X11R6/lib64 -lX11  
 
 else ifeq ($(TARGET),gfortranwin)
-	$(f90) $(copt)  -o penmshxp $(objects) disgf.a -luser32 -lgdi32 -lopengl32
+	$(f90) $(copt) -static -o penmshxp $(objects) disgf.a -luser32 -lgdi32 -lopengl32
 
 endif
 inpred.o:inpred.f90  $(modules)
