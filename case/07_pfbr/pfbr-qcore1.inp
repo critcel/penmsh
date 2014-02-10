@@ -84,7 +84,7 @@
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 /base material in each coarse mesh
 /coarse mesh material 16x18
-16R9 17Q16
+288R9
 /overlar structure for cm type 1
 14
 2 2 2 -6 -6 -6 -6 -6 -6 -6 -6 -6 -6 -6
