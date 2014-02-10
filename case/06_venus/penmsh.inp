@@ -1,0 +1,26 @@
+venus
+/no. coarse z-levels, no. of materials, imath
+1,13,0
+/z-level coarse mesh boundaries
+70.0,83.45,92.85,105.0,155.0,157.80,163.85,165.30,168.0
+/max. number of fine z-mesh per coarse z-level
+5 5 5 15 2 4 2 2
+/fine-to-med grid ratio along x.., y.., z.. in each coarse z-level
+2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2
+/source format iso, # x-src mesh, # y-src mesh, # z-src mesh, ngrp, sn, pn
+0,32,32,21,47,8,0
+/xsec type, xsec #comment cards, xsec Leg order, ihm 
+1, 1, 1, 50
+/Bdy conds: ibback(-x),ibfrnt(+x),jbeast(-y),jbwest(+y),kbsout(-z),kbnort(+z)
+1,0,1,0,1,0
+
+
+
+
+
+
+
+
+

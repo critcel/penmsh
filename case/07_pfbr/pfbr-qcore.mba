@@ -1,0 +1,17 @@
+
+
+
+Material     Material      Target (cm3)      Density g/cc
+  Name        Number         Volume
+---------------------------------------------------------
+Fuel211          1           1.00            1.0
+Fuel212          2           1.00            1.0
+Fuel213          3           1.00            1.0
+Fuel284          4           1.00            1.0
+Fuel285          5           1.00            1.0
+Fuel286          6           1.00            1.0
+Blanket7         7           1.00            1.0
+Blanket8         8           1.00            1.0
+Coolant          9           1.00            1.0
+SteelRef        10           1.00            1.0
+NatBoron        11           1.00            1.0
