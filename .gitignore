@@ -2,6 +2,7 @@ v2.66c/
 *.plt
 *.mod
 *.o
+*.obj
 *.zip
 *.1
 *.L*
@@ -11,4 +12,8 @@ v2.66c/
 *.ref
 prb.pen
 *.out
+*out.mba
+*out.pen
+*titan.inp
+read.log
 penmshxp
