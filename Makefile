@@ -17,7 +17,8 @@ else ifeq ($(TARGET),pgi)
 	copt=-fast
 else
 # $(error build with make TARGET=pgi or make TARGET=gfortran)
-$(error build with 'make TARGET=pgi' or 'make TARGET=gfortran')
+$(error build with 'make TARGET=pgi' or 'make TARGET=gfortran' \
+	    or 'make TARGET=gfortranwin')
 endif
 objects=inpred.o mytecio.o subcode0.o subcode1.o \
         subcode2.o subcode3.o subcode4.o subcode5.o \
