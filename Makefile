@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 f90=h5pfc
 objects=inpred.o mytecio.o subcode0.o subcode1.o \
         subcode2.o subcode3.o subcode4.o subcode5.o \

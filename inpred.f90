@@ -15,7 +15,8 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.73b_h5 (Feb 2014 )"
+
+ver_num="version 2.73b (02.14.2014)"
 !*****************************************
 !control varibles in this section
 
@@ -62,9 +63,11 @@ call DisplayShortHeader
 stime=SECNDS(0.0)
 
 open(unit=READLOG, file=outputfile(1)%fullname)
+
 write (READLOG,"('penmshxp ', A)" ) ver_num
 write(form,"('read.log generated at : ')") 
 call TimeStamp(READLOG)
+write(READLOG, "('command line: ', A)" ) trim(cmd_line)
 
 write(*,*)  'processing inputfiles.....'
 if(IsProcessHrt .eq. 1) then
@@ -250,7 +253,7 @@ use funs
 use ErrControl
 
 parameter(ndash=2)
-character*80,dimension(:), allocatable :: buf
+character*100,dimension(:), allocatable :: buf
 integer count
 integer i
 integer :: IsSuccess=0
@@ -268,10 +271,11 @@ allocate(id_arg(0:count), buf(0:count))
 id_arg=0
 buf=''
 call  GETARG(0,buf(0))
-
+cmd_line=trim(buf(0))
 do i = 1, count
   
   call GETARG(i, buf(i))
+  cmd_line=trim(cmd_line)//' '//trim(buf(i))
   
   Flags: select case (trim(buf(i)))
   
@@ -834,7 +838,6 @@ end subroutine
 !Display the help screen and terminate the program
 subroutine DisplayShortHeader
 use paraset1, only: ver_num
-
 
 write(*,"('PENMSH ', A)")  trim(ver_num)
 write(*,"('use -h option for help, and check the read.log file')")     
