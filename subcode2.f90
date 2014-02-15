@@ -593,6 +593,7 @@ integer block, num_block
 integer inii,injj,inkk
 integer rep_i,rep_j,rep_k, my_mat
 integer cm_num_zlev
+logical :: IsZthr=.TRUE.
 
 data qc/qcircle(1,3),qcircle(2,3),qcircle(2,4),qcircle(1,4)/
 data tri/3,2,4, &
@@ -939,6 +940,13 @@ vertex_y=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(4,m)
 
 r_out=(center_x-vertex_x)**2+(center_y-vertex_y)**2
 r_out=sqrt(r_out)
+if(r_out .lt. 10E-7) then
+   write(err_message,&
+   "('Hexgon vertex and center points too close for Overlay', I0,' in cm ',I0)")  m,cm_num_zlev 
+   cur_filename=inputfile(k)%fullname
+  call TrapInputError(1)
+endif
+
 r_in=r_out*cos30 !sqrt(3)/2
 
 
@@ -963,8 +971,25 @@ elseif(center_x .eq. vertex_x) then
   center_x=center_x-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
   vertex_x=vertex_x-0.5*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(1,m)
  endif
+else
+   write(err_message,&
+   "('Hexgon vertex has to be on X or Y axis for Overlay', I0,' in cm ',I0)")  m,cm_num_zlev 
+   cur_filename=inputfile(k)%fullname
+  call TrapInputError(1)
 endif
 
+IsZthr=.TRUE.
+if(zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(maxos,m) .ge. 6) then
+   zfin_flag=1
+   Zx=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(5,m)+&
+    (rep_k-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(3,m) 
+   Zy=zlevel(k)%cm_zlev(i,j)%overlay_block(block)%overlay_bon(6,m)+&
+    (rep_k-1)*zlevel(k)%cm_zlev(i,j)%overlay_block(block)%dist_rep(3,m) 
+   if((z1 .lt. Zx) .or. (z1 .gt. Zy) ) IsZthr=.FALSE.
+endif
+
+if(IsZthr) then   
+    
 d=(x1-center_x)**2+(y1-center_y)**2
 d=sqrt(d)
 
@@ -1000,6 +1025,7 @@ endif
 if(d .le. dk) then
   zlevel(k)%cm_zlev(i,j)%mat_matrix(ini,inj,ink)=my_mat
   exit repk_loop
+endif
 endif
 
 endif
