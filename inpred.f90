@@ -16,7 +16,7 @@ use files
 use ErrControl
 
 
-ver_num="version 2.73b (02.14.2014)"
+ver_num="version 2.73b_h5 (02.14.2014)"
 !*****************************************
 !control varibles in this section
 
