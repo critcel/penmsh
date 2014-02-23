@@ -153,3 +153,6 @@ Feb. 7 2014
 5 -maxmesh option to set the maxim size of fine mesh
 02.14.2014
 6. added hexgon overlay z boundaries 
+
+2.23.2014  h5v1.01
+1. added cm boundary output in h5 file, xdim, ydim, and zdim =cgdim(i)%boundary

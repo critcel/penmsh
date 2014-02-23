@@ -11,6 +11,8 @@ module MyHDF5
 !  integer(HID_T), allocatable :: dset_id(:,:,:)       ! Dataset identifier
 !  integer(HID_T), allocatable :: dspace_id(:,:,:)     ! Dataspace identifier
   integer(HSIZE_T), dimension(3) :: ddims
+  integer(HSIZE_T), dimension(1) :: cgdims
+  character(len=3) :: char_xyz='xyz'
 end module 
 
 ! write mat number to a h5 file
@@ -32,7 +34,7 @@ subroutine WriteDotH5
   character (LEN=20) :: dsetname=''
   
   cm_num=0  
-  rank=3
+
   
   call h5open_f(err_h5)
   cur_filename=trim(prbname)//".h5"
@@ -42,7 +44,23 @@ subroutine WriteDotH5
   
 !  allocate (dspace_id(num_cmesh(1), num_cmesh(2), num_cmesh(3))
 !  allocate (dset_id((num_cmesh(1), num_cmesh(2), num_cmesh(3))
+!cm dimmesions
+  rank=1
+  do i=1, 3
+! Create the dataspace.
+     cgdims(1)=num_cmesh(i)+1
+     call h5screate_simple_f(rank, cgdims, dspace_id, err_h5)
+! Create the dataset with default properties.
+     write (dsetname,"(A1, 'dim' )") char_xyz(i:i)
+     call h5dcreate_f(file_id, dsetname, H5T_NATIVE_REAL, dspace_id, dset_id, err_h5)
+     call h5dwrite_f(dset_id, H5T_NATIVE_REAL, cgdim(i)%boundary, cgdims, err_h5)
+! End access to the dataset and release resources used by it.
+     call h5dclose_f(dset_id, err_h5)
+! Terminate access to the data space.
+     call h5sclose_f(dspace_id, err_h5)
+  enddo 
   
+  rank=3
   do cmk=1, num_cmesh(3) 
     do cmj=1,num_cmesh(2)
       do cmi=1, num_cmesh(1)
