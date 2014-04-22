@@ -133,12 +133,6 @@ v2.73b
 1. penmshxp -chipath ChiPath_dir
 
 2. grp window diabled for nprtyp=0 (keff calculation and upscattering)
-
-v2.73b_h5  HDF5 branch
-1. supplement03.f90 : added hdf5 subroutine
-2. inpred.f90 : IsDotH5=1 to output mat number in HDF5 format
-                command line option -h5
-v2.73b
 Feb. 4 2014
 3. fixed a bug on shared CM overlay: subcode1.f90   forgot to delete 
 !zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
@@ -153,6 +147,5 @@ Feb. 7 2014
 5 -maxmesh option to set the maxim size of fine mesh
 02.14.2014
 6. added hexgon overlay z boundaries 
-
-2.23.2014  h5v1.01
-1. added cm boundary output in h5 file, xdim, ydim, and zdim =cgdim(i)%boundary
+04.21.2014
+subcode1.f90: fixed for Intel FORTRAN  int() changed to nint() for all CM mat reading. 
