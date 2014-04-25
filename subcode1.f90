@@ -392,7 +392,7 @@ m=0
 do k=1,zlevel(i)%ncy
 do j=1,zlevel(i)%ncx
 m=m+1
-zlevel(i)%cm_zlev(j,k)%fine(1)=int(fidobank(m))
+zlevel(i)%cm_zlev(j,k)%fine(1)=nint(fidobank(m))
 enddo
 enddo
 
@@ -429,7 +429,7 @@ m=0
 do k=1,zlevel(i)%ncy
 do j=1,zlevel(i)%ncx
 m=m+1
-zlevel(i)%cm_zlev(j,k)%fine(2)=int(fidobank(m))
+zlevel(i)%cm_zlev(j,k)%fine(2)=nint(fidobank(m))
 enddo
 enddo
  
@@ -465,7 +465,7 @@ m=0
 do k=1,zlevel(i)%ncy
 do j=1,zlevel(i)%ncx
 m=m+1
-zlevel(i)%cm_zlev(j,k)%fine(3)=int(fidobank(m))
+zlevel(i)%cm_zlev(j,k)%fine(3)=nint(fidobank(m))
 enddo
 enddo
 
@@ -555,8 +555,9 @@ do j=1,zlevel(i)%ncx
 m=m+1
 cmtyp=fidobank(m)/10.0-int(fidobank(m)/10.0)
 cmtyp=10*cmtyp
-zlevel(i)%cm_zlev(j,k)%cm_type=int(fidobank(m))
-if(abs(int(cmtyp)) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
+zlevel(i)%cm_zlev(j,k)%cm_type=nint(fidobank(m))
+if(abs(nint(cmtyp)) .gt. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
+
 enddo
 enddo
 
@@ -584,7 +585,7 @@ m=0
 do k=1,zlevel(i)%ncy
 do j=1,zlevel(i)%ncx
 m=m+1
-zlevel(i)%cm_zlev(j,k)%num_subregion=int(fidobank(m))
+zlevel(i)%cm_zlev(j,k)%num_subregion=nint(fidobank(m))
 if(abs(zlevel(i)%cm_zlev(j,k)%num_subregion) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
 enddo
 enddo
@@ -628,7 +629,7 @@ do cmy=1,zlevel(i)%ncy
 do cmx=1,zlevel(i)%ncx
 m=m+1
 cm_num_1z=cmx+(cmy-1)*zlevel(i)%ncx
-zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num=int(fidobank(m))
+zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num=nint(fidobank(m))
 if(zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num .gt. num_material .or. zlevel(i)%cm_zlev(cmx,cmy)%cm_mat_num .le. 0) then
    write(err_message, "('Material # > num of materials at cm ',I0,' zlev ',I0)") cm_num_1z, i
    call TrapInputError(1)
