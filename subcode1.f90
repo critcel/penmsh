@@ -1696,7 +1696,8 @@ use paraset2
 use paraset4
 use mIn4deck
 
-integer i, ierr, len_eff
+integer i
+integer :: ierr=0, len_eff=0
 
 integer pos_mark
 integer cmx,cmy, cmz, cm_idx, matn
@@ -1776,7 +1777,7 @@ do i=2 , num_zlev
 enddo
  cur_var='corase mesh cards'
 
-
+ierr=0
 loop_line : do while (ierr .eq. 0)
 
 in4line=''

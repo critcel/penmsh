@@ -15,7 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-ver_num="version 2.73b (04.21.2014)"
+ver_num="version 2.73b (05.10.2014)"
 !*****************************************
 !control varibles in this section
 
