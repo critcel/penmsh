@@ -21,13 +21,19 @@ elseif (Fortran_COMPILER_NAME MATCHES "nagfor.*")
 
 endif (Fortran_COMPILER_NAME MATCHES "gfortran.*")
 
-set(extern_LIB ${CMAKE_CURRENT_SOURCE_DIR})
-set(extern_LIB /usr/local/dislin)
-link_directories (${extern_LIB})
+# set(extern_LIB /usr/local/dislin)
+# set(extern_LIB ${CMAKE_CURRENT_SOURCE_DIR})
+# set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR})
+message ("CMAKE_MODULE_PATH = " ${CMAKE_MODULE_PATH})
+find_package (DISLIN REQUIRED)
+include_directories(${DISLIN_INCLUDE_DIRS})
+set(LIBS ${LIBS} ${DISLIN_LIBRARIES})
 
 add_executable (penmsh inpred.f90 subcode0.f90 subcode1.f90 subcode2.f90
                 subcode3.f90 subcode4.f90 subcode5.f90 subcode6.f90 
                 subcode7.f90 subcode8.f90 mytecio.f90 dislin.f90
                 supplement01.f90 supplement02-plot.f90)
 
-target_link_libraries (penmsh dislin)
+            # target_link_libraries (penmsh dislin)
+target_link_libraries (penmsh ${LIBS})
