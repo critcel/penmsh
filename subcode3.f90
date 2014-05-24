@@ -154,7 +154,7 @@ tolin(1)=1E-3
 ! tolout
 tolout(1)=1E-5
 !maxitr
-maxitr(1)=50  !max_no_of_iter=50
+maxitr(1)=70  !max_no_of_iter=50
 maxitr(2)=10  !criticality_inner_limit=10
 rkdef=1.0
 endif
@@ -171,7 +171,7 @@ number_of_zones=num_cm
 damping_fact=0.999
 skip_iter=0
 
-dtwmxw=0.95
+dtwmxw=0.97
 nquit=4
 num_source=0
 do k=1, num_cmesh(3)

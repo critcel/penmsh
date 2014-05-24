@@ -57,7 +57,7 @@ integer :: IsProcessHrt=0
 
 character*80  :: hrt_filename=''
 character*30 ::  ver_num
-
+character(len=256) :: cmd_line=''
 
 !for mox problem
  !IsPosition=0 : upper right

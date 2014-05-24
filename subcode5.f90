@@ -606,11 +606,11 @@ maxarr=num_group*num_material*ihm*(legoxs+1)
 
 !GES Change mult by 25 
 !maxarr=maxarr+50
-maxarr=(maxarr+60)*25  
+maxarr=(maxarr+60)*30  
 
 !GES Change mult by 15
 !nctlim=max_fido_char+50
-nctlim=(max_fido_char+50)*15 
+nctlim=(max_fido_char+50)*20 
 
 
 open(unit=TEMPF90, file=trim(outputfile(5)%fullname),STATUS='OLD',err=5401)

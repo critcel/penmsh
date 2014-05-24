@@ -144,4 +144,10 @@ cmtyp=10*cmtyp
 zlevel(i)%cm_zlev(j,k)%cm_type=int(fidobank(m))
 if(abs(int(cmtyp)) .ne. 1 .and. IsAllCmat .eq. 1) IsAllCmat=0
 Feb. 7 2014
-5 -maxmesh option to set the maxim size of fine mesh 
+5 -maxmesh option to set the maxim size of fine mesh
+02.14.2014
+6. added hexgon overlay z boundaries 
+04.21.2014
+subcode1.f90: fixed for Intel FORTRAN  int() changed to nint() for all CM mat reading. 
+5.10.2014
+All in one input file ierr not initialized to zero
