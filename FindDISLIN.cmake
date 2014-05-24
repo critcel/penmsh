@@ -5,17 +5,19 @@
 #  DISLIN_LIBRARIES - The libraries needed to use dislin
 #  DISLIN_DEFINITIONS - Compiler switches required for using dislin
  
-find_package(PkgConfig)
-pkg_check_modules(PC_LIBDISLIN QUIET libdislin)
+# find_package(PkgConfig)
+# pkg_check_modules(PC_LIBDISLIN QUIET libdislin)
 set(DISLIN_DEFINITIONS ${PC_LIBDISLIN_CFLAGS_OTHER})
  
-find_path(DISLIN_INCLUDE_DIR dislin/dislin.h
+find_path(DISLIN_INCLUDE_DIR dislin.h
           HINTS ${PC_DISLIN_INCLUDEDIR} ${PC_DISLIN_INCLUDE_DIRS} $ENV{DISLIN_INCDIR}
+          $ENV{DISLIN}
           PATH_SUFFIXES dislin )
  
-find_library(DISLIN_LIBRARY NAMES dislin
+find_library(DISLIN_LIBRARY 
+             NAMES dislin disifd
              HINTS ${PC_DISLIN_LIBDIR} ${PC_DISLIN_LIBRARY_DIRS} $ENV{DISLIN_LIBDIR} 
-             PATH_SUFFIXES dislin lib )
+             $ENV{DISLIN})
  
 set(DISLIN_LIBRARIES ${DISLIN_LIBRARY} )
 set(DISLIN_INCLUDE_DIRS ${DISLIN_INCLUDE_DIR} )
