@@ -17,8 +17,20 @@ find_path(DISLIN_INCLUDE_DIR dislin.h
           $ENV{DISLIN}
           PATH_SUFFIXES dislin )
  
+if (Fortran_COMPILER_NAME MATCHES "pgfortran.*") # portland
+    set (DISNAME "dispgf_d") 
+elseif (Fortran_COMPILER_NAME MATCHES "gfortran.*") # gfortran
+    set (DISNAME "disgf_d")
+elseif (Fortran_COMPILER_NAME MATCHES "nagfor.*") # nagfor
+    set (DISNAME "")  # not tested
+elseif (Fortran_COMPILER_NAME MATCHES "ifort.*") # intel
+    set (DISNAME "disifd")
+endif ()
+
+message("DISNAME =" ${DISNAME})
+
 find_library(DISLIN_LIBRARY 
-             NAMES dislin disifd
+             NAMES dislin ${DISNAME}
              HINTS ${PC_DISLIN_LIBDIR} ${PC_DISLIN_LIBRARY_DIRS} $ENV{DISLIN_LIBDIR} 
              $ENV{DISLIN})
  

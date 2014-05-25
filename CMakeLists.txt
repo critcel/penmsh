@@ -12,19 +12,20 @@ elseif (Fortran_COMPILER_NAME MATCHES "gfortran.*") # gfortran
     set (CMAKE_Fortran_FLAGS "-O3 -ffree-form -ffree-line-length-none")
 elseif (Fortran_COMPILER_NAME MATCHES "nagfor.*") # nagfor
     set (CMAKE_Fortran_FLAGS "-O3")
-endif () #  (Fortran_COMPILER_NAME MATCHES "gfortran.*")
+elseif (Fortran_COMPILER_NAME MATCHES "ifort.*") # intel
+    set (CMAKE_Fortran_FLAGS "-O3")
+endif ()
 
 message ("Fortran compiler: " ${Fortran_COMPILER_NAME})
 message ("Fortran compiler options: " ${CMAKE_Fortran_FLAGS})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR})
-message ("CMAKE_MODULE_PATH = " ${CMAKE_MODULE_PATH})
 find_package (DISLIN REQUIRED)
 include_directories(${DISLIN_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${DISLIN_LIBRARIES})
 
 if(WIN32)
-    set(LIBS ${LIBS} user32.lib gdi32.lib)
+    set(LIBS ${LIBS}  user32.lib gdi32.lib opengl32.lib)
 endif(WIN32)
 
 add_executable (penmsh dislin.f90
@@ -34,3 +35,6 @@ add_executable (penmsh dislin.f90
                 supplement01.f90 supplement02-plot.f90)
 
 target_link_libraries (penmsh ${LIBS})
+
+message ("CMAKE_MODULE_PATH = " ${CMAKE_MODULE_PATH})
+message ("LIBS = " ${LIBS})
