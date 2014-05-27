@@ -5,10 +5,10 @@
 #  DISLIN_LIBRARIES - The libraries needed to use dislin
 #  DISLIN_DEFINITIONS - Compiler switches required for using dislin
  
-if(LINUX)
+if(UNIX)
   find_package(PkgConfig)
   pkg_check_modules(PC_LIBDISLIN QUIET libdislin)
-endif(LINUX)
+endif(UNIX)
 
 set(DISLIN_DEFINITIONS ${PC_LIBDISLIN_CFLAGS_OTHER})
  
@@ -16,16 +16,18 @@ find_path(DISLIN_INCLUDE_DIR dislin.h
           HINTS ${PC_DISLIN_INCLUDEDIR} ${PC_DISLIN_INCLUDE_DIRS} $ENV{DISLIN_INCDIR}
           $ENV{DISLIN}
           PATH_SUFFIXES dislin )
- 
-if (Fortran_COMPILER_NAME MATCHES "pgfortran.*") # portland
-    set (DISNAME "dispgf_d") 
-elseif (Fortran_COMPILER_NAME MATCHES "gfortran.*") # gfortran
-    set (DISNAME "disgf_d")
-elseif (Fortran_COMPILER_NAME MATCHES "nagfor.*") # nagfor
-    set (DISNAME "")  # not tested
-elseif (Fortran_COMPILER_NAME MATCHES "ifort.*") # intel
-    set (DISNAME "disifd")
-endif ()
+
+if(WIN32) 
+    if (Fortran_COMPILER_NAME MATCHES "pgfortran.*") # portland
+        set (DISNAME "dispgf_d") 
+    elseif (Fortran_COMPILER_NAME MATCHES "gfortran.*") # gfortran
+        set (DISNAME "disgf_d")
+    elseif (Fortran_COMPILER_NAME MATCHES "nagfor.*") # nagfor
+        set (DISNAME "")  # not tested
+    elseif (Fortran_COMPILER_NAME MATCHES "ifort.*") # intel
+        set (DISNAME "disifd")
+    endif ()
+endif()
 
 message("DISNAME =" ${DISNAME})
 
