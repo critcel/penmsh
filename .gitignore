@@ -1,4 +1,6 @@
+build/
 v2.66c/
+*.sw*
 *.plt
 *.mod
 *.o
