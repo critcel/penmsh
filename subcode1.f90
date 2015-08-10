@@ -1697,7 +1697,8 @@ use paraset2
 use paraset4
 use mIn4deck
 
-integer i, j, m, k,ierr, len_eff
+integer i, j, m, k
+integer :: ierr=0, len_eff=0
 
 integer pos_mark
 integer cmx,cmy, cmz, cm_idx, matn
