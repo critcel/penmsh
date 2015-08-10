@@ -16,7 +16,7 @@ integer i,j,k,m, IsAllCmat
 integer bit_num_zlev,cm_num_1z
 integer cmx,cmy
 integer overlay,overlay_typ,overlay_num_abs, over_num
-integer name_len,dir_len,ext_len,fullname_len
+integer name_len,dir_len  !,ext_len,fullname_len
 ! integer err_open
 ! integer err_read
 
@@ -24,7 +24,7 @@ integer name_len,dir_len,ext_len,fullname_len
 integer block, num_block
 
 !for cm type3
-integer cm_typ, num_reg
+integer cm_typ, num_reg,mycm_num
 
 !for repeat overlay block
 integer :: rep_ijk(3), rep_i, rep_j, rep_k
@@ -1270,7 +1270,7 @@ use ErrControl
 use files
 integer ErrClass
 
-integer:: i=0 
+!integer:: i=0 
 
 !Error traps
 if (ErrClass .gt. 0) then
@@ -1647,7 +1647,7 @@ subroutine CheckLineseg
 use mIn4deck
 
 integer i
-integer len_seg
+integer len_seg,lineflag
 integer ::  pos_space=0, pos_digit=0, pos_fidoc=0
 
 lineseg=adjustl(lineseg)
@@ -1696,12 +1696,12 @@ use paraset2
 use paraset4
 use mIn4deck
 
-integer i
+integer i,j,m,k
 integer :: ierr=0, len_eff=0
 
 integer pos_mark
 integer cmx,cmy, cmz, cm_idx, matn
-integer :: cijk(3)=0, fijk(3)=0
+integer :: cijk(3)=0  !, fijk(3)=0
 
 integer :: block, num_block, temp_int
 

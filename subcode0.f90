@@ -530,8 +530,8 @@ end module
 Module lineread
 
 !maxium length for one line
-parameter(MAXLEN=120)
-parameter(NUMFLAG=4)
+integer, parameter :: MAXLEN=120
+integer, parameter :: NUMFLAG=4
 integer :: flag(NUMFLAG)=0
 contains
 ! preread a line, if it's comment line, continue to read next line 
@@ -742,7 +742,7 @@ select case (overlay_typ)
   case (6)
    map_overlay_typ2bon=4
   case default
-    map_overlay_tpy2bon=4
+    map_overlay_typ2bon=4
 	write(err_message,"('overlay type ',I0, ' in CM ', I0,' not supported ' )")&
         overlay_typ,cm_num_1z
     call TrapInputError(1)		  

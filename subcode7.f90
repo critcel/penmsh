@@ -700,10 +700,10 @@ use files
 use funs
 use ErrControl
 
-integer i,j,k, g, m
+integer  g, m
 integer cmi,cmj,cmk, fmi,fmj,fmk
 integer num_fmesh(3)
-
+real vol
 real,allocatable :: flux_gm(:,:)
 
 allocate( flux_gm(num_group, num_material))

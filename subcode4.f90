@@ -20,7 +20,7 @@ integer m,i_len
 !IsNomalizeFlux: numalize flux to the max_flux
 !ISCompareMCNP: compare pentran flux with MCNP
 
-real tmp_flux(2)
+! real tmp_flux(2)
 
 real x0,y0,z0
 real,dimension(:),allocatable :: point

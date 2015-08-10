@@ -151,3 +151,7 @@ Feb. 7 2014
 subcode1.f90: fixed for Intel FORTRAN  int() changed to nint() for all CM mat reading. 
 5.10.2014
 All in one input file ierr not initialized to zero
+
+v2.74b 8.10.2015
+1. clean up unused and undefined vars
+
