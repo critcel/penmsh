@@ -15,9 +15,7 @@ use paraset4
 use files
 use ErrControl
 
-
-
-ver_num="version 2.73b_h5v1.01 (04.21.2014)"
+ver_num="version 2.74b_h5v1.01 (08.10.2015)"
 
 !*****************************************
 !control varibles in this section
@@ -267,16 +265,18 @@ integer,dimension(:),allocatable :: id_arg
 
 real rarg
 !count = iargc( )
-count = IARGC( )
+!count = IARGC( )
+count = command_argument_count()
 !buf(0): command itself
 allocate(id_arg(0:count), buf(0:count))
 id_arg=0
 buf=''
-call  GETARG(0,buf(0))
+!call  GETARG(0,buf(0))
+call get_command_argument(0,buf(0))
 cmd_line=trim(buf(0))
 do i = 1, count
   
-  call GETARG(i, buf(i))
+  call get_command_argument(i, buf(i))
   cmd_line=trim(cmd_line)//' '//trim(buf(i))
   
   Flags: select case (trim(buf(i)))

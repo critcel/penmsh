@@ -1062,7 +1062,7 @@ Subroutine ReadIn4
 use files
 use ErrControl
 use paraset1, only : input_dir, sec_flag
-use paraset4, only : sn_order,prbname
+use paraset4, only : sn_order  !,prbname
 use paraset3
 use paraset5
 use funs

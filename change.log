@@ -131,8 +131,16 @@ plot using min and/or max for a group
 
 v2.73b 
 1. penmshxp -chipath ChiPath_dir
-
 2. grp window diabled for nprtyp=0 (keff calculation and upscattering)
+
+v2.73b_h5  HDF5 branch
+1. supplement03.f90 : added hdf5 subroutine
+2. inpred.f90 : IsDotH5=1 to output mat number in HDF5 format
+                command line option -h5
+windows build (intel visual fortran 15)
+Include: d:\utils\hdf5\build\bin\fortran\Release\
+Library path: d:\YunDisks\Dropbox\penmsh\src\winlib\;d:\utils\hdf5\build\bin\Release\
+libs: disifm32.lib user32.lib gdi32.lib hdf5_fortran.lib
 Feb. 4 2014
 3. fixed a bug on shared CM overlay: subcode1.f90   forgot to delete 
 !zlevel(i)%cm_zlev(cmx,cmy)%overlay_block(block)%overlay_typ(j)=&
@@ -149,3 +157,9 @@ Feb. 7 2014
 6. added hexgon overlay z boundaries 
 04.21.2014
 subcode1.f90: fixed for Intel FORTRAN  int() changed to nint() for all CM mat reading. 
+
+v2.74b  8.10.2015
+1. clean up unused and undefined vars
+
+
+

@@ -250,12 +250,12 @@ implicit none
 integer, parameter ::  num_pre=6
 real :: point(num_pre)=0.0
 
-integer g,m,n
+integer g,m
 integer cmi, cmj,cmk, fmi, fmj, fmk
 integer i,j
-integer :: num_vol=0 , fm=0 , fm_bon=0
+integer ::  fm=0 , fm_bon=0 !,num_vol=0 
 
-character(LEN=100) filename_flux
+!character(LEN=100) filename_flux
 !integer, allocatable :: fm_bon(:)
 
 if(num_flx_out .eq. 0) then

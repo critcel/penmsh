@@ -541,11 +541,11 @@ end function
 !write zone data header
 integer function cmZoneHeader(filenum)
 integer filenum
+integer i
 
 write(pltfile(filenum)%unit) ZoneMarker
 write(pltfile(filenum)%unit) NumRepVars
 write(pltfile(filenum)%unit) (pltfile(1)%zne_datafmt(i),i=1,pltfile(1)%NumVar)
-
 
 cmZoneHeader=1
 end function

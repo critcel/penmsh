@@ -28,7 +28,7 @@ subroutine WriteDotH5
   
   implicit none
   integer cmi, cmj, cmk
-  integer i, j, k
+  integer i
   integer rank, cm_num
   
   character (LEN=20) :: dsetname=''

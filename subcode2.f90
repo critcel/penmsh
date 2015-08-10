@@ -168,11 +168,11 @@ subroutine AssignSrcMag
 use paraset2
 use paraset4
 use ErrControl
-use paraset1, only : max_src, IsZsingle, z_start, z_end
+use paraset1, only : max_src, z_start, z_end !, IsZsingle
 use files
 
 integer i,j,k,ini,inj,ink
-integer err
+!integer err
 real srcden
 
 ! num_source=0
@@ -581,6 +581,8 @@ end type
 integer m, matn
 integer ini,inj,ink
 real x1,y1,z1
+real d, sec_r1, sec_r2
+
 integer :: overlay_num_abs=0,zfin_flag=1
 integer matloop
 

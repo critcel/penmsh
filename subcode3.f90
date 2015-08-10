@@ -11,11 +11,11 @@ use paraset5
 use files
 use ErrControl
 use funs
+use fido
 
-integer i,j,k,mi
+integer i,j,k,m,mi, i_var
 integer temp(2)
 integer cm_i,cm_j,cm_k
-
 integer mfront, mback, mleft, mright
 
 !real*8 :: src_total=0
@@ -300,7 +300,7 @@ allocate(smag(num_source))
 do i=1, num_source
   call TransCmIndex(nscmsh(i),cm_i,cm_j,cm_k)
   smag(i)=zlevel(cm_k)%cm_zlev(cm_i,cm_j)%sum_act
-  src_total=src_total+smag(i)
+!  src_total=src_total+smag(i)
 enddo 
 endif
 
@@ -402,7 +402,7 @@ real fi,fj,fk,finvol
 integer i_var,IsPart
 logical ex
 integer mesh(6), cm_start(3), cm_end(3) !, fm_start(3), fm_end(3)
-integer:: cen_src(3)=0, cen_lft(3)=0, cen_rgt(3)=0
+integer::  cen_lft(3)=0, cen_rgt(3)=0 !,cen_src(3)=0,
 real ::fra_z(2)=1.0,fra_y(2)=1.0,fra_x(2) 
 real x,y,z
 real ::tot_src_mesh=0, tot_fm_mesh=0,src_fine=0,src_fine_tot=0
@@ -739,7 +739,7 @@ use paraset2
 integer cm_i,cm_j,cm_k, fm_k,k1,k2
 real fk(2)
 
-real top
+real top,bot
 ! integer start
 integer i
 
@@ -808,7 +808,7 @@ use paraset2
 integer cm_i,cm_j,cm_k, fm_k,k1,k2
 real fk(2)
 
-real top
+real top,bot
 ! integer start
 integer i
 !top=zlevel(cm_k)%cm_zlev(cm_i,cm_j)%cm_y(fm_k)+0.5*&
@@ -872,7 +872,7 @@ use paraset2
 integer cm_i,cm_j,cm_k, fm_k,k1,k2
 real fk(2)
 
-real top
+real top,bot
 !integer start
 integer i
 !top=zlevel(cm_k)%cm_zlev(cm_i,cm_j)%cm_x(fm_k)+0.5*&
