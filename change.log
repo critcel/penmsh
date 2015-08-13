@@ -154,4 +154,4 @@ All in one input file ierr not initialized to zero
 
 v2.74b 8.10.2015
 1. clean up unused and undefined vars
-
+2. initialize quad(i)%num_split =0, (caused error in WriteTitanInp)
