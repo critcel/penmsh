@@ -308,13 +308,13 @@ real :: alpha=0.02   !circular splitting derailed angle in radian
 end type
 
 type tQuad
-integer :: tquad, oquad, num_split
+integer :: tquad, oquad, num_split=0
 type(tSplit), dimension(:), allocatable :: direc_split
 
 end type
 
 type(tQuad), dimension(:), allocatable :: quad
-integer :: num_split
+integer :: num_split=0
 
 end module
 

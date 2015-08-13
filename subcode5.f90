@@ -1019,6 +1019,7 @@ write(cur_fileunit,"('tolout=',ES12.5 )" ) tolout(1)
 write(cur_fileunit,"('maxout=',I0 )" ) maxitr(1)
 write(cur_fileunit,"('maxinn=',I0 )" ) maxitr(2)
 
+
 if(IsSpect .eq. 1) then
 write(cur_fileunit, "('/*************************************************************************')")
 write(cur_fileunit,"('#5  /Section 10 (Optional) : SPECT')") 
