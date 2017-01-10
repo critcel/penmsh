@@ -1,0 +1,56 @@
+/All-zlev-in-one input file: ain.inp
+/ncx, ncy
+3, 2
+/ cm bounds along x-axis 
+0.0  15.0  20.0  25.0
+/cm bounds along y-axis 
+0.0000E+00  15.0000E+00  2.0000E+01  
+/CM cards
+cm=1 1 1
+2            /cm(1,1,1) mat num
+5 5 5      /cm(1,1,1) fine mesh number along x y z
+cm=2 1 1
+2
+15 5 12
+cm=3 1 1
+2
+5 5 12
+cm=1   2 1
+2
+15 5 12
+cm= 2  2 1 
+2
+5 5 12
+cm=3 2 1
+2
+5 15 12
+cm=1  1 2
+-1     /negative mat number -> overlay exist
+100 100 40
+/overlay
+2
+-2  -4
+5   -1 
+/first overlay (circle)
+0.0 1.0 0.0 1.0
+3 3 1    2.5 2.5 0
+/second overlay (sphere)
+10.0 10.0 1.0   1.0
+3 3 3    2.5 2.5 2.5
+5 7 9 2Q3  2Q9
+cm=2 1 2
+2
+5 15 12
+cm=3  1 2
+1
+15 15 12
+cm=1   2  2  
+2
+5 15 12
+cm=2 2  2 
+2
+5 5 12
+cm=3 2 2 
+2
+15 5 12
+

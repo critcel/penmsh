@@ -1,4 +1,6 @@
 PENMSH
 ======
 
-PENMSH - A Fortran Tool for Creating Hexahedral Meshes in PENTRAN and TITAN Codes
+PENMSHXP - A Utility Tool for Creating Hexahedral Meshes in PENTRAN and TITAN Codes
+
+
